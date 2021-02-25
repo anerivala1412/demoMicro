@@ -47,22 +47,25 @@ const path_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 const graphql_1 = __webpack_require__(5);
 const mongoose_1 = __webpack_require__(6);
-const users_resolver_1 = __webpack_require__(7);
-const users_service_1 = __webpack_require__(9);
-const user_schema_1 = __webpack_require__(16);
-const config_1 = __webpack_require__(17);
-const app_1 = __webpack_require__(18);
-const database_1 = __webpack_require__(19);
+const nestjs_config_1 = __webpack_require__(7);
+const path = __webpack_require__(4);
+const users_resolver_1 = __webpack_require__(8);
+const users_service_1 = __webpack_require__(10);
+const user_schema_1 = __webpack_require__(17);
 let UsersModule = class UsersModule {
 };
 UsersModule = __decorate([
     common_1.Module({
         imports: [
-            config_1.ConfigModule.forRoot({
-                load: [app_1.default, database_1.default],
-            }),
+            nestjs_config_1.ConfigModule.load(path.resolve(__dirname, "../apps/config/**/*.{ts,js}")),
             mongoose_1.MongooseModule.forFeature([{ name: "USER", schema: user_schema_1.userSchema }]),
-            mongoose_1.MongooseModule.forRoot("mongodb://localhost/microdb"),
+            mongoose_1.MongooseModule.forRootAsync({
+                imports: [nestjs_config_1.ConfigModule],
+                useFactory: async (config) => ({
+                    uri: config.get("database.url"),
+                }),
+                inject: [nestjs_config_1.ConfigService],
+            }),
             graphql_1.GraphQLFederationModule.forRoot({
                 autoSchemaFile: path_1.join(process.cwd(), "apps/users/src/schema.gql"),
             }),
@@ -93,6 +96,12 @@ module.exports = require("@nestjs/mongoose");;
 
 /***/ }),
 /* 7 */
+/***/ ((module) => {
+
+module.exports = require("nestjs-config");;
+
+/***/ }),
+/* 8 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -112,11 +121,11 @@ var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersResolver = void 0;
 const graphql_1 = __webpack_require__(5);
-const user_model_1 = __webpack_require__(8);
-const users_service_1 = __webpack_require__(9);
-const user_input_1 = __webpack_require__(15);
+const user_model_1 = __webpack_require__(9);
+const users_service_1 = __webpack_require__(10);
+const user_input_1 = __webpack_require__(16);
 const common_1 = __webpack_require__(1);
-const constant_1 = __webpack_require__(14);
+const constant_1 = __webpack_require__(15);
 let UsersResolver = class UsersResolver {
     constructor(usersService) {
         this.usersService = usersService;
@@ -199,7 +208,7 @@ exports.UsersResolver = UsersResolver;
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -256,7 +265,7 @@ exports.LoginResponse = LoginResponse;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -276,12 +285,12 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersService = void 0;
 const common_1 = __webpack_require__(1);
-const mongoose_1 = __webpack_require__(10);
-const mongodb_1 = __webpack_require__(11);
-const jwt_1 = __webpack_require__(12);
+const mongoose_1 = __webpack_require__(11);
+const mongodb_1 = __webpack_require__(12);
+const jwt_1 = __webpack_require__(13);
 const mongoose_2 = __webpack_require__(6);
-const bcrypt = __webpack_require__(13);
-const constant_1 = __webpack_require__(14);
+const bcrypt = __webpack_require__(14);
+const constant_1 = __webpack_require__(15);
 let UsersService = class UsersService {
     constructor(userModel) {
         this.userModel = userModel;
@@ -355,31 +364,31 @@ exports.UsersService = UsersService;
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ ((module) => {
 
 module.exports = require("mongoose");;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ ((module) => {
 
 module.exports = require("mongodb");;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/jwt");;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ ((module) => {
 
 module.exports = require("bcrypt");;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -400,7 +409,7 @@ exports.jwtConstants = {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -463,49 +472,18 @@ exports.LoginInput = LoginInput;
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.userSchema = void 0;
-const mongoose = __webpack_require__(10);
+const mongoose = __webpack_require__(11);
 exports.userSchema = new mongoose.Schema({
     name: String,
     email: String,
     password: String,
 }, { timestamps: true });
-
-
-/***/ }),
-/* 17 */
-/***/ ((module) => {
-
-module.exports = require("@nestjs/config");;
-
-/***/ }),
-/* 18 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const config_1 = __webpack_require__(17);
-exports.default = config_1.registerAs("app", () => ({
-    url: process.env.DATABASE_URL,
-}));
-
-
-/***/ }),
-/* 19 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const config_1 = __webpack_require__(17);
-exports.default = config_1.registerAs("database", () => ({
-    type: "mongoose",
-    url: process.env.DATABASE_URL,
-}));
 
 
 /***/ })
