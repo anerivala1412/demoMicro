@@ -12,6 +12,11 @@ export class RentsService {
     @InjectModel("RENT")
     public rentModel: Model<IRent>
   ) {}
+
+  async findAll(query) {
+    return (await this.rentModel.distinct("productId", { ...query })) || [];
+  }
+
   async create(input: RentInput) {
     const existItem = await this.rentModel.findOne({
       $and: [

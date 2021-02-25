@@ -1,6 +1,7 @@
 import { Args, Parent, Query, ResolveField, Mutation } from "@nestjs/graphql";
 import { BadRequestException, UseGuards } from "@nestjs/common";
 import { Resolver } from "@nestjs/graphql";
+import { ObjectId } from "mongodb";
 
 import { Product } from "./products.model";
 import { ProductsService } from "./products.service";
@@ -17,15 +18,6 @@ export class ProductsResolver {
   @Query((returns) => [Product], { name: "getProducts" })
   async getProducts() {
     return await this.productService.findAll({});
-  }
-
-  @UseGuards(GqlAuthGuard)
-  @Query((returns) => [Product], { name: "getUserProducts" })
-  async getUserProducts(@CurrentUser() user: IUser) {
-    console.log({ user });
-    return await this.productService.findAll({
-      userId: user._id,
-    });
   }
 
   @ResolveField((of) => Product, { name: "getProduct" })

@@ -43,6 +43,7 @@ type Rent {
 scalar DateTimeScalar
 
 type Query {
+  getUserProducts: [Product!]!
   getProducts: [Product!]!
   user(id: Int!): User!
 }

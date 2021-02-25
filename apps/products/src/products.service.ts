@@ -11,6 +11,7 @@ export class ProductsService {
   ) {}
 
   async findAll(query) {
+    console.log()
     return await this.productModel.find({ ...query });
   }
   async create(input) {

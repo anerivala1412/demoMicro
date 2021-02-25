@@ -1,4 +1,4 @@
-import { Args, Mutation, ResolveField, Parent } from "@nestjs/graphql";
+import { Args, Mutation, ResolveField, Parent, Query } from "@nestjs/graphql";
 import { Resolver } from "@nestjs/graphql";
 import { ObjectId } from "mongodb";
 
@@ -10,6 +10,10 @@ import { IRent } from "./rents.interface";
 import { ProductsService } from "../../products/src/products.service";
 import { UsersService } from "../../users/src/users.service";
 import { User } from "../../users/src/user.model";
+import { CurrentUser } from "../../auth/current-user.decorator";
+import { GqlAuthGuard } from "../../auth/gql.auth.guard";
+import { UseGuards } from "@nestjs/common";
+import { IUser } from "../../users/src/user.interface";
 
 @Resolver((of) => Rent)
 export class RentResolver {
@@ -26,6 +30,17 @@ export class RentResolver {
     return await this.productService.getOne({
       _id: new ObjectId(rent.productId),
     });
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query((returns) => [Product], { name: "getUserProducts" })
+  async getUserProducts(@CurrentUser() user: IUser) {
+    const productsIds = await this.rentService.findAll({
+      userId: new ObjectId(user._id),
+    });
+    return (
+      (await this.productService.findAll({ _id: { $in: productsIds } })) || []
+    );
   }
 
   @ResolveField(() => User, { nullable: true })
