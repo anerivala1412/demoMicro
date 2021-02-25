@@ -1,4 +1,5 @@
 import { Directive, Field, ID, ObjectType } from "@nestjs/graphql";
+import { PRODUCT_UNIT } from "../../enum/global.enum";
 
 @ObjectType()
 @Directive("@extends")
@@ -13,6 +14,9 @@ export class Product {
 
   @Field()
   price: string;
+
+  @Field(() => String)
+  unit: string;
 
   constructor(product: Partial<Product>) {
     Object.assign(product);

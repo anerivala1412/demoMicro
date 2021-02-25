@@ -50,6 +50,8 @@ const products_service_1 = __webpack_require__(6);
 const mongoose_1 = __webpack_require__(7);
 const products_schema_1 = __webpack_require__(9);
 const products_resolver_1 = __webpack_require__(10);
+const user_model_1 = __webpack_require__(13);
+const products_model_1 = __webpack_require__(11);
 let ProductsModule = class ProductsModule {
 };
 ProductsModule = __decorate([
@@ -59,6 +61,7 @@ ProductsModule = __decorate([
             mongoose_1.MongooseModule.forRoot("mongodb://localhost/microdb"),
             graphql_1.GraphQLFederationModule.forRoot({
                 autoSchemaFile: path_1.join(process.cwd(), "apps/products/src/schema.gql"),
+                buildSchemaOptions: { orphanedTypes: [user_model_1.User, products_model_1.Product] },
             }),
         ],
         providers: [products_service_1.ProductsService, products_resolver_1.ProductsResolver],
@@ -299,6 +302,63 @@ ProductUpdateInput = __decorate([
     graphql_1.InputType()
 ], ProductUpdateInput);
 exports.ProductUpdateInput = ProductUpdateInput;
+
+
+/***/ }),
+/* 13 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.LoginResponse = exports.User = void 0;
+const graphql_1 = __webpack_require__(4);
+let User = class User {
+    constructor(user) {
+        Object.assign(user);
+    }
+};
+__decorate([
+    graphql_1.Field((type) => graphql_1.ID),
+    __metadata("design:type", Number)
+], User.prototype, "id", void 0);
+__decorate([
+    graphql_1.Field(),
+    __metadata("design:type", String)
+], User.prototype, "name", void 0);
+__decorate([
+    graphql_1.Field(),
+    __metadata("design:type", String)
+], User.prototype, "email", void 0);
+User = __decorate([
+    graphql_1.ObjectType(),
+    graphql_1.Directive('@key(fields: "id")'),
+    __metadata("design:paramtypes", [typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object])
+], User);
+exports.User = User;
+let LoginResponse = class LoginResponse {
+};
+__decorate([
+    graphql_1.Field(() => String, { nullable: false }),
+    __metadata("design:type", String)
+], LoginResponse.prototype, "token", void 0);
+__decorate([
+    graphql_1.Field(() => User, { nullable: true }),
+    __metadata("design:type", User)
+], LoginResponse.prototype, "userInfo", void 0);
+LoginResponse = __decorate([
+    graphql_1.ObjectType({ isAbstract: true })
+], LoginResponse);
+exports.LoginResponse = LoginResponse;
 
 
 /***/ })

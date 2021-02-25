@@ -19,8 +19,8 @@ export class UsersService {
     private userModel: Model<IUser>
   ) {}
 
-  findOneById(postId: number): User {
-    return this.posts.find(({ id }) => id === postId);
+  async findOneById(postId: number) {
+    return await this.posts.find(({ id }) => id === postId);
   }
   // async create(user) {
   //   await this.userModel.create(user);
@@ -66,10 +66,14 @@ export class UsersService {
    * register user
    * @param payload
    */
-  async create(payload): Promise<IUser> {
-    const hashedPassword = await bcrypt.hash(payload.password, 12);
-    payload.password = hashedPassword;
-    payload.email = payload.email.toLowerCase();
+  async create(input): Promise<IUser> {
+    const hashedPassword = await bcrypt.hash(input.password, 12);
+
+    let payload = {
+      ...input,
+      email: input.email.toLowerCase(),
+      password: hashedPassword,
+    };
     return await this.userModel.create(payload);
   }
 
@@ -77,8 +81,11 @@ export class UsersService {
    * update user
    * @param payload
    */
-  async update(payload): Promise<IUser> {
-    payload.email = payload.email.toLowerCase();
+  async update(input): Promise<IUser> {
+    let payload = {
+      ...input,
+      email: input.email.toLowerCase(),
+    };
     return await this.userModel.findOneAndUpdate(
       {
         _id: new ObjectId(payload._id),
@@ -108,17 +115,14 @@ export class UsersService {
       secret: jwtConstants.secret,
       signOptions: { expiresIn: jwtConstants.expiresIn },
     });
-    const existUser: any = await this.userModel.findOne({
+    const existUser: IUser = await this.userModel.findOne({
       email: loginInfo.email,
     });
 
     if (!existUser) {
       throw new Error(staticError.userNotFound);
     }
-
-    let result = null;
-
-    result = await bcrypt.compare(loginInfo.password, existUser.password);
+    const result = await bcrypt.compare(loginInfo.password, existUser.password);
 
     if (result) {
       const payload = {

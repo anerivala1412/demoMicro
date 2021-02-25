@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-export const productSchema = new mongoose.Schema(
+export const rentSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,

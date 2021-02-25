@@ -4000,8 +4000,13 @@
         "signature": "db6829b77ab4292f3c3508e06c14bffb5016604dc6434620776747425f891eee",
         "affectsGlobalScope": false
       },
+      "../../../apps/users/src/user.model.ts": {
+        "version": "a8427e099f2b843518e20b732fc14e46ff894c4489795ca9d1d9afee47c49227",
+        "signature": "587cd766cb1c8872a978343f873829a090cf7ca767b1e1db0ee48d38d28011a7",
+        "affectsGlobalScope": false
+      },
       "../../../apps/products/src/products.module.ts": {
-        "version": "1ce089e770d0a0493f11146035a5e4a976316c56fe3001eaadca4085ac5b3536",
+        "version": "1a8c13a53041deb9d4d2d5be5a29d46e22e9553db344e0c2a8fef70354764093",
         "signature": "8857a2a959eb0ee870d0adb812e0d41a0e12796ec0c1d85f8416e82bcf51ca03",
         "affectsGlobalScope": false
       },
@@ -4341,9 +4346,11 @@
         "../../../node_modules/@nestjs/graphql/index.d.ts"
       ],
       "../../../apps/products/src/products.module.ts": [
+        "../../../apps/products/src/products.model.ts",
         "../../../apps/products/src/products.resolver.ts",
         "../../../apps/products/src/products.schema.ts",
         "../../../apps/products/src/products.service.ts",
+        "../../../apps/users/src/user.model.ts",
         "../../../node_modules/@nestjs/common/index.d.ts",
         "../../../node_modules/@nestjs/graphql/index.d.ts",
         "../../../node_modules/@nestjs/mongoose/index.d.ts",
@@ -4363,6 +4370,9 @@
         "../../../node_modules/@nestjs/common/index.d.ts",
         "../../../node_modules/@nestjs/mongoose/index.d.ts",
         "../../../node_modules/mongoose/index.d.ts"
+      ],
+      "../../../apps/users/src/user.model.ts": [
+        "../../../node_modules/@nestjs/graphql/index.d.ts"
       ],
       "../../../node_modules/@apollo/gateway/dist/FieldSet.d.ts": [
         "../../../node_modules/graphql/index.d.ts"
@@ -11304,6 +11314,7 @@
       "../../../apps/products/src/products.resolver.ts",
       "../../../apps/products/src/products.schema.ts",
       "../../../apps/products/src/products.service.ts",
+      "../../../apps/users/src/user.model.ts",
       "../../../node_modules/@apollo/gateway/dist/FieldSet.d.ts",
       "../../../node_modules/@apollo/gateway/dist/QueryPlan.d.ts",
       "../../../node_modules/@apollo/gateway/dist/buildQueryPlan.d.ts",

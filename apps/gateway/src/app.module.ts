@@ -8,7 +8,10 @@ import { productSchema } from "../../products/src/products.schema";
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: "USER", schema: userSchema },{ name: "PRODUCT", schema: productSchema }]),
+    MongooseModule.forFeature([
+      { name: "USER", schema: userSchema },
+      { name: "PRODUCT", schema: productSchema },
+    ]),
     MongooseModule.forRoot("mongodb://localhost/microdb"),
     GraphQLGatewayModule.forRoot({
       server: { cors: true },

@@ -1,6 +1,7 @@
 import { Directive, Field, ID, ObjectType } from "@nestjs/graphql";
 import { User } from "../../users/src/user.model";
 import { Product } from "../../products/src/products.model";
+import { DATETIME } from "../../config/date.scalar";
 
 @ObjectType()
 @Directive("@extends")
@@ -15,6 +16,12 @@ export class Rent {
 
   @Field((type) => User)
   userId?: User;
+
+  @Field(() => DATETIME, { nullable: true })
+  createdAt: any;
+
+  @Field(() => DATETIME, { nullable: true })
+  updatedAt: any;
 
   constructor(rent: Partial<Rent>) {
     Object.assign(rent);

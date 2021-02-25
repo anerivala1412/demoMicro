@@ -23,8 +23,8 @@ export class UsersResolver {
   }
 
   @Query((returns) => User, { name: "user" })
-  getUser(@Args("id", { type: () => Int }) id: number): User {
-    return this.usersService.findOneById(id);
+  async getUser(@Args("id", { type: () => Int }) id: number) {
+    return await this.usersService.findOneById(id);
   }
 
   @Mutation(() => User, { name: "createUser" })
@@ -34,7 +34,6 @@ export class UsersResolver {
     const existUser = await this.usersService.findOne({
       email: payload.email,
     });
-    console.log({ existUser });
     if (existUser) throw new Error(`${staticError.userExist}`);
     return this.usersService.create({
       ...payload,
@@ -58,8 +57,8 @@ export class UsersResolver {
   @Mutation(() => LoginResponse, { name: "login" })
   async login(@Args("input") input: LoginInput) {
     try {
-      input.email = input.email.toLowerCase();
-      return await this.usersService.login(input);
+      let payload = { ...input, email: input.email.toLowerCase() };
+      return await this.usersService.login(payload);
     } catch (error) {
       throw new BadRequestException(
         (error as Error).message,

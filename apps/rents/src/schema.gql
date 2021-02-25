@@ -12,28 +12,29 @@ directive @requires(fields: String!) on FIELD_DEFINITION
 
 directive @provides(fields: String!) on FIELD_DEFINITION
 
-type Product {
-  id: ID!
-  name: String!
-  price: String!
-  getProduct: Product!
-}
-
 type User {
   id: ID!
   name: String!
   email: String!
 }
 
-type Query {
-  getProducts: [Product!]!
+type Product {
+  id: ID!
+  name: String!
+  price: String!
+}
+
+type Rent {
+  id: ID!
+  productId: Product!
+  userId: User!
 }
 
 type Mutation {
-  createProduct(input: CreateProductInput!): Product!
+  createRent(input: RentInput!): Rent!
 }
 
-input CreateProductInput {
-  price: String!
-  name: String!
+input RentInput {
+  userId: String!
+  productId: String!
 }

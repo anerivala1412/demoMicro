@@ -3,6 +3,8 @@ import { Resolver } from "@nestjs/graphql";
 import { Product } from "./products.model";
 import { ProductsService } from "./products.service";
 import { CreateProductInput } from "./products.input";
+import { BadRequestException } from "@nestjs/common";
+import { staticError } from "../../constant";
 
 @Resolver((of) => Product)
 export class ProductsResolver {
@@ -20,8 +22,14 @@ export class ProductsResolver {
 
   @Mutation(() => Product, { name: "createProduct" })
   async create(@Args("input") input: CreateProductInput) {
-    return this.productService.create({
-      ...input,
-    });
+    try {
+      let payload = { ...input };
+      return await this.productService.create(payload);
+    } catch (error) {
+      throw new BadRequestException(
+        (error as Error).message,
+        `${staticError.product}_CREATE.ERROR`
+      );
+    }
   }
 }

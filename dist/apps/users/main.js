@@ -50,11 +50,17 @@ const mongoose_1 = __webpack_require__(6);
 const users_resolver_1 = __webpack_require__(7);
 const users_service_1 = __webpack_require__(9);
 const user_schema_1 = __webpack_require__(16);
+const config_1 = __webpack_require__(17);
+const app_1 = __webpack_require__(18);
+const database_1 = __webpack_require__(19);
 let UsersModule = class UsersModule {
 };
 UsersModule = __decorate([
     common_1.Module({
         imports: [
+            config_1.ConfigModule.forRoot({
+                load: [app_1.default, database_1.default],
+            }),
             mongoose_1.MongooseModule.forFeature([{ name: "USER", schema: user_schema_1.userSchema }]),
             mongoose_1.MongooseModule.forRoot("mongodb://localhost/microdb"),
             graphql_1.GraphQLFederationModule.forRoot({
@@ -471,6 +477,37 @@ exports.userSchema = new mongoose.Schema({
     email: String,
     password: String,
 }, { timestamps: true });
+
+
+/***/ }),
+/* 17 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/config");;
+
+/***/ }),
+/* 18 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const config_1 = __webpack_require__(17);
+exports.default = config_1.registerAs("app", () => ({
+    url: process.env.DATABASE_URL,
+}));
+
+
+/***/ }),
+/* 19 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const config_1 = __webpack_require__(17);
+exports.default = config_1.registerAs("database", () => ({
+    type: "mongoose",
+    url: process.env.DATABASE_URL,
+}));
 
 
 /***/ })

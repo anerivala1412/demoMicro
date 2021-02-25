@@ -4,6 +4,7 @@ export const staticError = {
   userNotFound: "User not found",
   passwordNotMatched: "Password Not Matched",
   user: "USER_LOGIN",
+  product:'PRODUCT'
 };
 
 export const jwtConstants = {
