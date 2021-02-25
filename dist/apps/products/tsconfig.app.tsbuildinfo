@@ -3971,32 +3971,42 @@
         "affectsGlobalScope": false
       },
       "../../../apps/products/src/products.interface.ts": {
-        "version": "26c01d77152739b96eb919ba1d3a3d9315ee0c99c6545f7f190c3849772ed307",
-        "signature": "49f39fba22a499dffecb44aa2f88d64665edf0a25ba324526829f92f8c84ad7b",
+        "version": "2c1616273c594df7849579c8fdef94060194c59c11c93c41d83672eb436ec773",
+        "signature": "f957362d531c9d2c5704dcdde0df7128eb0d9e2a69a07b122464278433a5a50c",
         "affectsGlobalScope": false
       },
       "../../../apps/products/src/products.service.ts": {
-        "version": "150506c2be048a9011d190934de08bfca6ef7805ace1fc8cb9513d881e73e6d8",
-        "signature": "426fba170a135aeca74f1f4fe627909d20be2818b86a77b221adeea3df9e4003",
+        "version": "f0a6724947338f4f48db143949d496cfaf15cabe0602cb2bafcad6472e4eac2e",
+        "signature": "e0ed36229425c4c6aac382c989fe1550223bfe4e157f8afec75fd0f568191fbd",
         "affectsGlobalScope": false
       },
       "../../../apps/products/src/products.schema.ts": {
-        "version": "eae2840ca05582d3ad4d045e0ff55edca4cfc8600960ccb584dd7ced3aaa7475",
+        "version": "16a6f50e986da070fa5b4fe0eea55b784434dd55b6e453c04a6e582a45d88f3b",
         "signature": "79548d4e0b1b241035ed0f2e10c70b6b211ed05d4faeec32806807fdf1e6e2df",
         "affectsGlobalScope": false
       },
+      "../../../apps/enum/global.enum.ts": {
+        "version": "39656af782f1ac1e3be00f9fe5763f6373785f661f37d9966e40cbf2ef3996ef",
+        "signature": "bb542fcded8b87f2803020cead71edc53a557dc07fe46747a5f9fba53f876956",
+        "affectsGlobalScope": false
+      },
       "../../../apps/products/src/products.model.ts": {
-        "version": "30cddc9cd34feeed801a496597ea6b5f280dab1303812f948b93c6dca8a98767",
-        "signature": "5d473951fb7b04ca71457034c522ce7130253d8b791fde68b97c38021e5e349c",
+        "version": "46b71608f2b859944ec2013042a5423f996d06382421f30d72f0dda222c2c09a",
+        "signature": "f2f967870c5ca811b352b498b4a789e7a356498adbea306176695aee33f8ad42",
         "affectsGlobalScope": false
       },
       "../../../apps/products/src/products.input.ts": {
-        "version": "2318660a62e11e9ce706492c1b15dd55562da06f4e0a82acddd25c13622b0ebf",
-        "signature": "1b3764f97aebbb84f94ffcd29ac20b004d8703563b0c5fee60b7406891ff00a2",
+        "version": "88905b58075ba9dff0a10684735214e2c0129d338897f68bf705042e5566a208",
+        "signature": "45d08dbe3c9d8d227d31893cbabe114b5b3a17fae78e335973b30082a1110c4c",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/constant.ts": {
+        "version": "69138fa3a457a729cd46f2f0959241e65965a32ea900b99064c2ec8f9dff4743",
+        "signature": "94509f604680166ddaef9f981b949083a890394853286ce42f36870785183e69",
         "affectsGlobalScope": false
       },
       "../../../apps/products/src/products.resolver.ts": {
-        "version": "2bf22142a5ccafd4edcdb57d2caca597e42485388ead07a2d85490d3ef7f4b8b",
+        "version": "50d070c256c2190029f2807117d3afcfee9e0c16ce7f6ca2df53de6bd0e65085",
         "signature": "db6829b77ab4292f3c3508e06c14bffb5016604dc6434620776747425f891eee",
         "affectsGlobalScope": false
       },
@@ -4331,18 +4341,23 @@
       "configFilePath": "../../../apps/products/tsconfig.app.json"
     },
     "referencedMap": {
+      "../../../apps/enum/global.enum.ts": [
+        "../../../node_modules/@nestjs/graphql/index.d.ts"
+      ],
       "../../../apps/products/src/main.ts": [
         "../../../apps/products/src/products.module.ts",
         "../../../node_modules/@nestjs/common/index.d.ts",
         "../../../node_modules/@nestjs/core/index.d.ts"
       ],
       "../../../apps/products/src/products.input.ts": [
+        "../../../apps/enum/global.enum.ts",
         "../../../node_modules/@nestjs/graphql/index.d.ts"
       ],
       "../../../apps/products/src/products.interface.ts": [
         "../../../node_modules/mongoose/index.d.ts"
       ],
       "../../../apps/products/src/products.model.ts": [
+        "../../../apps/enum/global.enum.ts",
         "../../../node_modules/@nestjs/graphql/index.d.ts"
       ],
       "../../../apps/products/src/products.module.ts": [
@@ -4357,9 +4372,11 @@
         "../../../node_modules/@types/node/path.d.ts"
       ],
       "../../../apps/products/src/products.resolver.ts": [
+        "../../../apps/constant.ts",
         "../../../apps/products/src/products.input.ts",
         "../../../apps/products/src/products.model.ts",
         "../../../apps/products/src/products.service.ts",
+        "../../../node_modules/@nestjs/common/index.d.ts",
         "../../../node_modules/@nestjs/graphql/index.d.ts"
       ],
       "../../../apps/products/src/products.schema.ts": [
@@ -4369,6 +4386,7 @@
         "../../../apps/products/src/products.interface.ts",
         "../../../node_modules/@nestjs/common/index.d.ts",
         "../../../node_modules/@nestjs/mongoose/index.d.ts",
+        "../../../node_modules/@types/mongodb/index.d.ts",
         "../../../node_modules/mongoose/index.d.ts"
       ],
       "../../../apps/users/src/user.model.ts": [
@@ -7833,10 +7851,14 @@
     },
     "exportedModulesMap": {
       "../../../apps/products/src/products.input.ts": [
+        "../../../apps/enum/global.enum.ts",
         "../../../node_modules/@nestjs/common/index.d.ts"
       ],
       "../../../apps/products/src/products.interface.ts": [
         "../../../node_modules/mongoose/index.d.ts"
+      ],
+      "../../../apps/products/src/products.model.ts": [
+        "../../../apps/enum/global.enum.ts"
       ],
       "../../../apps/products/src/products.resolver.ts": [
         "../../../apps/products/src/products.input.ts",
@@ -11306,6 +11328,8 @@
       ]
     },
     "semanticDiagnosticsPerFile": [
+      "../../../apps/constant.ts",
+      "../../../apps/enum/global.enum.ts",
       "../../../apps/products/src/main.ts",
       "../../../apps/products/src/products.input.ts",
       "../../../apps/products/src/products.interface.ts",

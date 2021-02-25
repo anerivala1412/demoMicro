@@ -3971,13 +3971,23 @@
         "affectsGlobalScope": false
       },
       "../../../apps/rents/src/rents.interface.ts": {
-        "version": "119435fef54d937b9e614545d50b0b8d7e7afe7285ac2b902f7ae516690a839e",
-        "signature": "8818a6d523ab3a980d08fbeedebac4b79860eb927ae2bb49ee12be58f9c677d0",
+        "version": "7a1151fa9f76ab4a6d0e4204c10be17a724e343a23d727204cb21294579c4d95",
+        "signature": "3a53566697874a34cea29323d3defaa818ab3d3f0d4968b4c1a18e71aa701927",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/constant.ts": {
+        "version": "69138fa3a457a729cd46f2f0959241e65965a32ea900b99064c2ec8f9dff4743",
+        "signature": "94509f604680166ddaef9f981b949083a890394853286ce42f36870785183e69",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/rents/src/rents.input.ts": {
+        "version": "5efc13ee0822e37aaf95d9281b2f36169379b1535cf54273402fdacce018691f",
+        "signature": "7492b7c0846be74ca75adf1cc3aa751e753cc245f8d3cb5a1f9db97a4a24d437",
         "affectsGlobalScope": false
       },
       "../../../apps/rents/src/rents.service.ts": {
-        "version": "2f8ac425c04444bf298ad89e2b038d8fc65319c8711801dcc9be741efd7fe51c",
-        "signature": "6f6cdd92c640e6c548ce49ae1a1ec2cc8e7d1ebdb5cfb0cb7e2b6144788ce437",
+        "version": "b06579ad9c49982d356f61a02595bf77bbd532cd046d8fbfe1d27256e2e5c089",
+        "signature": "b1f275c16a9e0074b053fd840cb293c6517167703f0a7edb8178f883bd98e318",
         "affectsGlobalScope": false
       },
       "../../../apps/rents/src/rents.schema.ts": {
@@ -3990,28 +4000,128 @@
         "signature": "587cd766cb1c8872a978343f873829a090cf7ca767b1e1db0ee48d38d28011a7",
         "affectsGlobalScope": false
       },
+      "../../../apps/enum/global.enum.ts": {
+        "version": "351462c64311729a73880eba289ee13ace204709a3b56db9f9db6004c9e9ce78",
+        "signature": "bb542fcded8b87f2803020cead71edc53a557dc07fe46747a5f9fba53f876956",
+        "affectsGlobalScope": false
+      },
       "../../../apps/products/src/products.model.ts": {
-        "version": "30cddc9cd34feeed801a496597ea6b5f280dab1303812f948b93c6dca8a98767",
-        "signature": "5d473951fb7b04ca71457034c522ce7130253d8b791fde68b97c38021e5e349c",
+        "version": "e678bd0a693fc29cf9d91dd065a19aed285734447c4b98af6e748c9e5b5f7d78",
+        "signature": "a0cddc70efa8d38acec67c869053ca9dcbd0e8b4ba3ca53392ad8b5254383b77",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/config/date.scalar.ts": {
+        "version": "dce752544dade74516cc5fb3434c6b1642a3267073a6d0202d5ff13e19734cbf",
+        "signature": "bedb3713500604b69a8805a5ccebb880a0237dcfd2f0e4599b9674d780aa23fa",
         "affectsGlobalScope": false
       },
       "../../../apps/rents/src/rents.model.ts": {
-        "version": "812e51adc3ee2b270469bfb4a6af53249d9820b0bb8b64e667c83811c8e96a59",
-        "signature": "c254c46c15f796fb567aab979762f83d7ee82f962d3dd721a16ed313845f2a95",
+        "version": "a8b86a0e5c4d264810ca39d171f0bceb3cf0a3889c9d7e70ea3e94b904a31a08",
+        "signature": "20b4a186c7820e6a6762392e4c547a21bcb1ee7e4ef1380d64c54690e40b30f8",
         "affectsGlobalScope": false
       },
-      "../../../apps/rents/src/rents.input.ts": {
-        "version": "5efc13ee0822e37aaf95d9281b2f36169379b1535cf54273402fdacce018691f",
-        "signature": "7492b7c0846be74ca75adf1cc3aa751e753cc245f8d3cb5a1f9db97a4a24d437",
+      "../../../apps/products/src/products.interface.ts": {
+        "version": "2c1616273c594df7849579c8fdef94060194c59c11c93c41d83672eb436ec773",
+        "signature": "f957362d531c9d2c5704dcdde0df7128eb0d9e2a69a07b122464278433a5a50c",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/products/src/products.service.ts": {
+        "version": "f0a6724947338f4f48db143949d496cfaf15cabe0602cb2bafcad6472e4eac2e",
+        "signature": "e0ed36229425c4c6aac382c989fe1550223bfe4e157f8afec75fd0f568191fbd",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/posts/src/post.model.ts": {
+        "version": "c451b3b30558d1bf907967bb78d13ca012c6b83bc8b507d995d1b6cce0f5d2a2",
+        "signature": "0d82573270c88400ec13ec5ebd045b3d50706988c6091fb086e3be8c218be319",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/posts/src/user.model.ts": {
+        "version": "b9aa83dcf04dd92d4c0309846f0fa37283d338a6e00024a72df5e145e68074fe",
+        "signature": "60b3f60b4586480a556b6ed03587c3333b156f09f74054be636afa3e16ada64a",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/users/src/user.interface.ts": {
+        "version": "9e22154b4e8794fde3d6752b9b7081da5d99ee26d34cba1cd8bb83221e60bf4a",
+        "signature": "01435f13f61baa6a34f52c696fd29c783b60c2c878a252bb1f7d4e3c0f1c7e61",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/@types/jsonwebtoken/index.d.ts": {
+        "version": "f67c920eba6ab8e4558cb9ab661d900188f101c5657e19b1e15829a1d491d46e",
+        "signature": "f67c920eba6ab8e4558cb9ab661d900188f101c5657e19b1e15829a1d491d46e",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/@nestjs/jwt/dist/interfaces/jwt-module-options.interface.d.ts": {
+        "version": "fc0140cf41d169b3b77e09831c9d2eed1cdb131aa34f4fa27e4c01896ec97ad6",
+        "signature": "fc0140cf41d169b3b77e09831c9d2eed1cdb131aa34f4fa27e4c01896ec97ad6",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/@nestjs/jwt/dist/interfaces/index.d.ts": {
+        "version": "7c14e702387296711c1a829bc95052ff02f533d4aa27d53cc0186c795094a3a9",
+        "signature": "7c14e702387296711c1a829bc95052ff02f533d4aa27d53cc0186c795094a3a9",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/@nestjs/jwt/dist/jwt.module.d.ts": {
+        "version": "579f8828da42ae02db6915a0223d23b0da07157ff484fecdbf8a96fffa0fa4df",
+        "signature": "579f8828da42ae02db6915a0223d23b0da07157ff484fecdbf8a96fffa0fa4df",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/@nestjs/jwt/dist/jwt.service.d.ts": {
+        "version": "d1e16a1778a336ae49607ca0becd8688e74a020bea949047dcfcbb1bd2dc0f5a",
+        "signature": "d1e16a1778a336ae49607ca0becd8688e74a020bea949047dcfcbb1bd2dc0f5a",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/@nestjs/jwt/dist/index.d.ts": {
+        "version": "a13aac535101a942283e3d00bce50f483bfa9bed6e1f8dfda33a3bb072498776",
+        "signature": "a13aac535101a942283e3d00bce50f483bfa9bed6e1f8dfda33a3bb072498776",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/@nestjs/jwt/index.d.ts": {
+        "version": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
+        "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/users/src/user.input.ts": {
+        "version": "e69e5bb4ef2878fa8624685e3a264606bbceee2c6ac74c096e516e94b3b476ec",
+        "signature": "68b776a9758407130ed5c3534cbf52353a2f701ebd84216c9b7d2474751c40c6",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/users/src/users.service.ts": {
+        "version": "a90123ac61b06ef2a3a5ab9d34c860e60b5372f8f09d2d6944e2433cdb5106d3",
+        "signature": "52f2e0a4f8c8eba874530c8631508b68af5e9d8a37e00a786d249f7ac077d06d",
         "affectsGlobalScope": false
       },
       "../../../apps/rents/src/rents.resolver.ts": {
-        "version": "c4afbeb030564f5c902ea9ed7b58ddc20dc70afdfefb425426c9bdaabee75d30",
-        "signature": "719654e69bdd7d1a09c4f3a01edf1c7f593f701047f391a24587ce2f6fae30bc",
+        "version": "9ca996157d60c4cdb4bc0e0906269b14ce4b2df686ffcd01f7b7a6f0eede5289",
+        "signature": "8ebfd98b3ca69124dd8063e02096e198ee9750da71a553ba524429675e5874b1",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/products/src/products.input.ts": {
+        "version": "88905b58075ba9dff0a10684735214e2c0129d338897f68bf705042e5566a208",
+        "signature": "1a4e90ec0cd34630f27235e72cd800d364bbea5dd8b0120ed303ef46b23ad8d8",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/products/src/products.resolver.ts": {
+        "version": "50d070c256c2190029f2807117d3afcfee9e0c16ce7f6ca2df53de6bd0e65085",
+        "signature": "db6829b77ab4292f3c3508e06c14bffb5016604dc6434620776747425f891eee",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/users/src/users.resolver.ts": {
+        "version": "9416d8dc617b9b1c85f435d191cffa1d5e48c6efbc8bc1436c9c9937fe6e7ae0",
+        "signature": "cd638b481478fe4630dd37aa9680d05dde52a246b83ec00b630c4fd1ced0fd57",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/products/src/products.schema.ts": {
+        "version": "16a6f50e986da070fa5b4fe0eea55b784434dd55b6e453c04a6e582a45d88f3b",
+        "signature": "79548d4e0b1b241035ed0f2e10c70b6b211ed05d4faeec32806807fdf1e6e2df",
+        "affectsGlobalScope": false
+      },
+      "../../../apps/users/src/user.schema.ts": {
+        "version": "bdf1283a7c43aa8a510aca5f96743abed164e2993d9806410e03fffe42cff4fb",
+        "signature": "6eaee802a32953dc8d9dfdd79f4ec090e66cd82269fda34b29736f6d8e0759ff",
         "affectsGlobalScope": false
       },
       "../../../apps/rents/src/rents.module.ts": {
-        "version": "75917cef3734d406a999cc9de062b1d62e2f0c6f078c23d82e5c7944e51bc391",
+        "version": "821e724fa0eef29634ea3afeeefbada5fe85bdbf53c88078430487186ff401fc",
         "signature": "0213e58ad6e70681ab0a4d75b3b5ddb9e6bbab9a135441fab1da729a37dcc00a",
         "affectsGlobalScope": false
       },
@@ -4153,11 +4263,6 @@
       "../../../node_modules/@types/json5/index.d.ts": {
         "version": "c5a14bdeb170e0e67fb4200c54e0e02fd0ec94aca894c212c9d43c2916891542",
         "signature": "c5a14bdeb170e0e67fb4200c54e0e02fd0ec94aca894c212c9d43c2916891542",
-        "affectsGlobalScope": false
-      },
-      "../../../node_modules/@types/jsonwebtoken/index.d.ts": {
-        "version": "f67c920eba6ab8e4558cb9ab661d900188f101c5657e19b1e15829a1d491d46e",
-        "signature": "f67c920eba6ab8e4558cb9ab661d900188f101c5657e19b1e15829a1d491d46e",
         "affectsGlobalScope": false
       },
       "../../../node_modules/@types/minimatch/index.d.ts": {
@@ -4336,8 +4441,45 @@
       "configFilePath": "../../../apps/rents/tsconfig.app.json"
     },
     "referencedMap": {
-      "../../../apps/products/src/products.model.ts": [
+      "../../../apps/config/date.scalar.ts": [
+        "../../../node_modules/graphql/index.d.ts"
+      ],
+      "../../../apps/posts/src/post.model.ts": [
+        "../../../apps/posts/src/user.model.ts",
         "../../../node_modules/@nestjs/graphql/index.d.ts"
+      ],
+      "../../../apps/posts/src/user.model.ts": [
+        "../../../apps/posts/src/post.model.ts",
+        "../../../node_modules/@nestjs/graphql/index.d.ts"
+      ],
+      "../../../apps/products/src/products.input.ts": [
+        "../../../apps/enum/global.enum.ts",
+        "../../../node_modules/@nestjs/graphql/index.d.ts"
+      ],
+      "../../../apps/products/src/products.interface.ts": [
+        "../../../node_modules/mongoose/index.d.ts"
+      ],
+      "../../../apps/products/src/products.model.ts": [
+        "../../../apps/enum/global.enum.ts",
+        "../../../node_modules/@nestjs/graphql/index.d.ts"
+      ],
+      "../../../apps/products/src/products.resolver.ts": [
+        "../../../apps/constant.ts",
+        "../../../apps/products/src/products.input.ts",
+        "../../../apps/products/src/products.model.ts",
+        "../../../apps/products/src/products.service.ts",
+        "../../../node_modules/@nestjs/common/index.d.ts",
+        "../../../node_modules/@nestjs/graphql/index.d.ts"
+      ],
+      "../../../apps/products/src/products.schema.ts": [
+        "../../../node_modules/mongoose/index.d.ts"
+      ],
+      "../../../apps/products/src/products.service.ts": [
+        "../../../apps/products/src/products.interface.ts",
+        "../../../node_modules/@nestjs/common/index.d.ts",
+        "../../../node_modules/@nestjs/mongoose/index.d.ts",
+        "../../../node_modules/@types/mongodb/index.d.ts",
+        "../../../node_modules/mongoose/index.d.ts"
       ],
       "../../../apps/rents/src/main.ts": [
         "../../../apps/rents/src/rents.module.ts",
@@ -4351,36 +4493,81 @@
         "../../../node_modules/mongoose/index.d.ts"
       ],
       "../../../apps/rents/src/rents.model.ts": [
+        "../../../apps/config/date.scalar.ts",
         "../../../apps/products/src/products.model.ts",
         "../../../apps/users/src/user.model.ts",
         "../../../node_modules/@nestjs/graphql/index.d.ts"
       ],
       "../../../apps/rents/src/rents.module.ts": [
+        "../../../apps/products/src/products.model.ts",
+        "../../../apps/products/src/products.resolver.ts",
+        "../../../apps/products/src/products.schema.ts",
+        "../../../apps/products/src/products.service.ts",
         "../../../apps/rents/src/rents.resolver.ts",
         "../../../apps/rents/src/rents.schema.ts",
         "../../../apps/rents/src/rents.service.ts",
+        "../../../apps/users/src/user.model.ts",
+        "../../../apps/users/src/user.schema.ts",
+        "../../../apps/users/src/users.resolver.ts",
+        "../../../apps/users/src/users.service.ts",
         "../../../node_modules/@nestjs/common/index.d.ts",
         "../../../node_modules/@nestjs/graphql/index.d.ts",
         "../../../node_modules/@nestjs/mongoose/index.d.ts",
         "../../../node_modules/@types/node/path.d.ts"
       ],
       "../../../apps/rents/src/rents.resolver.ts": [
+        "../../../apps/posts/src/user.model.ts",
+        "../../../apps/products/src/products.model.ts",
+        "../../../apps/products/src/products.service.ts",
         "../../../apps/rents/src/rents.input.ts",
+        "../../../apps/rents/src/rents.interface.ts",
         "../../../apps/rents/src/rents.model.ts",
         "../../../apps/rents/src/rents.service.ts",
-        "../../../node_modules/@nestjs/graphql/index.d.ts"
+        "../../../apps/users/src/users.service.ts",
+        "../../../node_modules/@nestjs/graphql/index.d.ts",
+        "../../../node_modules/@types/mongodb/index.d.ts"
       ],
       "../../../apps/rents/src/rents.schema.ts": [
         "../../../node_modules/mongoose/index.d.ts"
       ],
       "../../../apps/rents/src/rents.service.ts": [
+        "../../../apps/constant.ts",
+        "../../../apps/rents/src/rents.input.ts",
         "../../../apps/rents/src/rents.interface.ts",
         "../../../node_modules/@nestjs/common/index.d.ts",
         "../../../node_modules/@nestjs/mongoose/index.d.ts",
         "../../../node_modules/mongoose/index.d.ts"
       ],
+      "../../../apps/users/src/user.input.ts": [
+        "../../../node_modules/@nestjs/graphql/index.d.ts"
+      ],
+      "../../../apps/users/src/user.interface.ts": [
+        "../../../node_modules/mongoose/index.d.ts"
+      ],
       "../../../apps/users/src/user.model.ts": [
         "../../../node_modules/@nestjs/graphql/index.d.ts"
+      ],
+      "../../../apps/users/src/user.schema.ts": [
+        "../../../node_modules/mongoose/index.d.ts"
+      ],
+      "../../../apps/users/src/users.resolver.ts": [
+        "../../../apps/constant.ts",
+        "../../../apps/users/src/user.input.ts",
+        "../../../apps/users/src/user.model.ts",
+        "../../../apps/users/src/users.service.ts",
+        "../../../node_modules/@nestjs/common/index.d.ts",
+        "../../../node_modules/@nestjs/graphql/index.d.ts"
+      ],
+      "../../../apps/users/src/users.service.ts": [
+        "../../../apps/constant.ts",
+        "../../../apps/users/src/user.input.ts",
+        "../../../apps/users/src/user.interface.ts",
+        "../../../apps/users/src/user.model.ts",
+        "../../../node_modules/@nestjs/common/index.d.ts",
+        "../../../node_modules/@nestjs/jwt/index.d.ts",
+        "../../../node_modules/@nestjs/mongoose/index.d.ts",
+        "../../../node_modules/@types/mongodb/index.d.ts",
+        "../../../node_modules/mongoose/index.d.ts"
       ],
       "../../../node_modules/@apollo/gateway/dist/FieldSet.d.ts": [
         "../../../node_modules/graphql/index.d.ts"
@@ -5901,6 +6088,31 @@
         "../../../node_modules/apollo-server-core/node_modules/graphql-tools/dist/schemaVisitor.d.ts",
         "../../../node_modules/apollo-server-core/node_modules/graphql-tools/dist/stitching/index.d.ts",
         "../../../node_modules/apollo-server-core/node_modules/graphql-tools/dist/transforms/index.d.ts"
+      ],
+      "../../../node_modules/@nestjs/jwt/dist/index.d.ts": [
+        "../../../node_modules/@nestjs/jwt/dist/interfaces/index.d.ts",
+        "../../../node_modules/@nestjs/jwt/dist/jwt.module.d.ts",
+        "../../../node_modules/@nestjs/jwt/dist/jwt.service.d.ts"
+      ],
+      "../../../node_modules/@nestjs/jwt/dist/interfaces/index.d.ts": [
+        "../../../node_modules/@nestjs/jwt/dist/interfaces/jwt-module-options.interface.d.ts"
+      ],
+      "../../../node_modules/@nestjs/jwt/dist/interfaces/jwt-module-options.interface.d.ts": [
+        "../../../node_modules/@nestjs/common/interfaces/index.d.ts",
+        "../../../node_modules/@types/jsonwebtoken/index.d.ts",
+        "../../../node_modules/@types/node/index.d.ts"
+      ],
+      "../../../node_modules/@nestjs/jwt/dist/jwt.module.d.ts": [
+        "../../../node_modules/@nestjs/common/index.d.ts",
+        "../../../node_modules/@nestjs/jwt/dist/interfaces/jwt-module-options.interface.d.ts"
+      ],
+      "../../../node_modules/@nestjs/jwt/dist/jwt.service.d.ts": [
+        "../../../node_modules/@nestjs/jwt/dist/interfaces/jwt-module-options.interface.d.ts",
+        "../../../node_modules/@types/jsonwebtoken/index.d.ts",
+        "../../../node_modules/@types/node/index.d.ts"
+      ],
+      "../../../node_modules/@nestjs/jwt/index.d.ts": [
+        "../../../node_modules/@nestjs/jwt/dist/index.d.ts"
       ],
       "../../../node_modules/@nestjs/mongoose/dist/common/index.d.ts": [
         "../../../node_modules/@nestjs/mongoose/dist/common/mongoose.decorators.d.ts",
@@ -7840,6 +8052,35 @@
       ]
     },
     "exportedModulesMap": {
+      "../../../apps/config/date.scalar.ts": [
+        "../../../node_modules/graphql/index.d.ts"
+      ],
+      "../../../apps/posts/src/post.model.ts": [
+        "../../../apps/posts/src/user.model.ts"
+      ],
+      "../../../apps/posts/src/user.model.ts": [
+        "../../../apps/posts/src/post.model.ts"
+      ],
+      "../../../apps/products/src/products.input.ts": [
+        "../../../apps/enum/global.enum.ts",
+        "../../../node_modules/@nestjs/common/index.d.ts"
+      ],
+      "../../../apps/products/src/products.interface.ts": [
+        "../../../node_modules/mongoose/index.d.ts"
+      ],
+      "../../../apps/products/src/products.resolver.ts": [
+        "../../../apps/products/src/products.input.ts",
+        "../../../apps/products/src/products.interface.ts",
+        "../../../apps/products/src/products.model.ts",
+        "../../../apps/products/src/products.service.ts"
+      ],
+      "../../../apps/products/src/products.schema.ts": [
+        "../../../node_modules/mongoose/index.d.ts"
+      ],
+      "../../../apps/products/src/products.service.ts": [
+        "../../../apps/products/src/products.interface.ts",
+        "../../../node_modules/mongoose/index.d.ts"
+      ],
       "../../../apps/rents/src/rents.interface.ts": [
         "../../../node_modules/mongoose/index.d.ts"
       ],
@@ -7848,15 +8089,41 @@
         "../../../apps/users/src/user.model.ts"
       ],
       "../../../apps/rents/src/rents.resolver.ts": [
+        "../../../apps/products/src/products.interface.ts",
+        "../../../apps/products/src/products.service.ts",
         "../../../apps/rents/src/rents.input.ts",
         "../../../apps/rents/src/rents.interface.ts",
-        "../../../apps/rents/src/rents.service.ts"
+        "../../../apps/rents/src/rents.service.ts",
+        "../../../apps/users/src/user.interface.ts",
+        "../../../apps/users/src/users.service.ts"
       ],
       "../../../apps/rents/src/rents.schema.ts": [
         "../../../node_modules/mongoose/index.d.ts"
       ],
       "../../../apps/rents/src/rents.service.ts": [
+        "../../../apps/rents/src/rents.input.ts",
         "../../../apps/rents/src/rents.interface.ts",
+        "../../../node_modules/mongoose/index.d.ts"
+      ],
+      "../../../apps/users/src/user.input.ts": [
+        "../../../node_modules/@nestjs/common/index.d.ts"
+      ],
+      "../../../apps/users/src/user.interface.ts": [
+        "../../../node_modules/mongoose/index.d.ts"
+      ],
+      "../../../apps/users/src/user.schema.ts": [
+        "../../../node_modules/mongoose/index.d.ts"
+      ],
+      "../../../apps/users/src/users.resolver.ts": [
+        "../../../apps/users/src/user.input.ts",
+        "../../../apps/users/src/user.interface.ts",
+        "../../../apps/users/src/user.model.ts",
+        "../../../apps/users/src/users.service.ts"
+      ],
+      "../../../apps/users/src/users.service.ts": [
+        "../../../apps/users/src/user.input.ts",
+        "../../../apps/users/src/user.interface.ts",
+        "../../../apps/users/src/user.model.ts",
         "../../../node_modules/mongoose/index.d.ts"
       ],
       "../../../node_modules/@apollo/gateway/dist/FieldSet.d.ts": [
@@ -9375,6 +9642,31 @@
         "../../../node_modules/apollo-server-core/node_modules/graphql-tools/dist/schemaVisitor.d.ts",
         "../../../node_modules/apollo-server-core/node_modules/graphql-tools/dist/stitching/index.d.ts",
         "../../../node_modules/apollo-server-core/node_modules/graphql-tools/dist/transforms/index.d.ts"
+      ],
+      "../../../node_modules/@nestjs/jwt/dist/index.d.ts": [
+        "../../../node_modules/@nestjs/jwt/dist/interfaces/index.d.ts",
+        "../../../node_modules/@nestjs/jwt/dist/jwt.module.d.ts",
+        "../../../node_modules/@nestjs/jwt/dist/jwt.service.d.ts"
+      ],
+      "../../../node_modules/@nestjs/jwt/dist/interfaces/index.d.ts": [
+        "../../../node_modules/@nestjs/jwt/dist/interfaces/jwt-module-options.interface.d.ts"
+      ],
+      "../../../node_modules/@nestjs/jwt/dist/interfaces/jwt-module-options.interface.d.ts": [
+        "../../../node_modules/@nestjs/common/interfaces/index.d.ts",
+        "../../../node_modules/@types/jsonwebtoken/index.d.ts",
+        "../../../node_modules/@types/node/index.d.ts"
+      ],
+      "../../../node_modules/@nestjs/jwt/dist/jwt.module.d.ts": [
+        "../../../node_modules/@nestjs/common/index.d.ts",
+        "../../../node_modules/@nestjs/jwt/dist/interfaces/jwt-module-options.interface.d.ts"
+      ],
+      "../../../node_modules/@nestjs/jwt/dist/jwt.service.d.ts": [
+        "../../../node_modules/@nestjs/jwt/dist/interfaces/jwt-module-options.interface.d.ts",
+        "../../../node_modules/@types/jsonwebtoken/index.d.ts",
+        "../../../node_modules/@types/node/index.d.ts"
+      ],
+      "../../../node_modules/@nestjs/jwt/index.d.ts": [
+        "../../../node_modules/@nestjs/jwt/dist/index.d.ts"
       ],
       "../../../node_modules/@nestjs/mongoose/dist/common/index.d.ts": [
         "../../../node_modules/@nestjs/mongoose/dist/common/mongoose.decorators.d.ts",
@@ -11314,7 +11606,17 @@
       ]
     },
     "semanticDiagnosticsPerFile": [
+      "../../../apps/config/date.scalar.ts",
+      "../../../apps/constant.ts",
+      "../../../apps/enum/global.enum.ts",
+      "../../../apps/posts/src/post.model.ts",
+      "../../../apps/posts/src/user.model.ts",
+      "../../../apps/products/src/products.input.ts",
+      "../../../apps/products/src/products.interface.ts",
       "../../../apps/products/src/products.model.ts",
+      "../../../apps/products/src/products.resolver.ts",
+      "../../../apps/products/src/products.schema.ts",
+      "../../../apps/products/src/products.service.ts",
       "../../../apps/rents/src/main.ts",
       "../../../apps/rents/src/rents.input.ts",
       "../../../apps/rents/src/rents.interface.ts",
@@ -11323,7 +11625,12 @@
       "../../../apps/rents/src/rents.resolver.ts",
       "../../../apps/rents/src/rents.schema.ts",
       "../../../apps/rents/src/rents.service.ts",
+      "../../../apps/users/src/user.input.ts",
+      "../../../apps/users/src/user.interface.ts",
       "../../../apps/users/src/user.model.ts",
+      "../../../apps/users/src/user.schema.ts",
+      "../../../apps/users/src/users.resolver.ts",
+      "../../../apps/users/src/users.service.ts",
       "../../../node_modules/@apollo/gateway/dist/FieldSet.d.ts",
       "../../../node_modules/@apollo/gateway/dist/QueryPlan.d.ts",
       "../../../node_modules/@apollo/gateway/dist/buildQueryPlan.d.ts",
@@ -11685,6 +11992,12 @@
       "../../../node_modules/@nestjs/graphql/node_modules/apollo-server-core/dist/types.d.ts",
       "../../../node_modules/@nestjs/graphql/node_modules/apollo-server-plugin-base/dist/index.d.ts",
       "../../../node_modules/@nestjs/graphql/node_modules/graphql-tools/dist/index.d.ts",
+      "../../../node_modules/@nestjs/jwt/dist/index.d.ts",
+      "../../../node_modules/@nestjs/jwt/dist/interfaces/index.d.ts",
+      "../../../node_modules/@nestjs/jwt/dist/interfaces/jwt-module-options.interface.d.ts",
+      "../../../node_modules/@nestjs/jwt/dist/jwt.module.d.ts",
+      "../../../node_modules/@nestjs/jwt/dist/jwt.service.d.ts",
+      "../../../node_modules/@nestjs/jwt/index.d.ts",
       "../../../node_modules/@nestjs/mongoose/dist/common/index.d.ts",
       "../../../node_modules/@nestjs/mongoose/dist/common/mongoose.decorators.d.ts",
       "../../../node_modules/@nestjs/mongoose/dist/common/mongoose.utils.d.ts",

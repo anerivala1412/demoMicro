@@ -48,10 +48,10 @@ const graphql_1 = __webpack_require__(4);
 const path_1 = __webpack_require__(5);
 const products_service_1 = __webpack_require__(6);
 const mongoose_1 = __webpack_require__(7);
-const products_schema_1 = __webpack_require__(9);
-const products_resolver_1 = __webpack_require__(10);
-const user_model_1 = __webpack_require__(13);
-const products_model_1 = __webpack_require__(11);
+const products_schema_1 = __webpack_require__(10);
+const products_resolver_1 = __webpack_require__(11);
+const user_model_1 = __webpack_require__(16);
+const products_model_1 = __webpack_require__(12);
 let ProductsModule = class ProductsModule {
 };
 ProductsModule = __decorate([
@@ -105,6 +105,7 @@ exports.ProductsService = void 0;
 const common_1 = __webpack_require__(1);
 const mongoose_1 = __webpack_require__(7);
 const mongoose_2 = __webpack_require__(8);
+const mongodb_1 = __webpack_require__(9);
 let ProductsService = class ProductsService {
     constructor(productModel) {
         this.productModel = productModel;
@@ -114,6 +115,9 @@ let ProductsService = class ProductsService {
     }
     async create(input) {
         return await this.productModel.create(input);
+    }
+    async getOne(id) {
+        return await this.productModel.findOne({ _id: new mongodb_1.ObjectId(id) });
     }
 };
 ProductsService = __decorate([
@@ -138,6 +142,12 @@ module.exports = require("mongoose");;
 
 /***/ }),
 /* 9 */
+/***/ ((module) => {
+
+module.exports = require("mongodb");;
+
+/***/ }),
+/* 10 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -147,11 +157,12 @@ const mongoose = __webpack_require__(8);
 exports.productSchema = new mongoose.Schema({
     name: String,
     price: String,
+    unit: String,
 }, { timestamps: true });
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -172,9 +183,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductsResolver = void 0;
 const graphql_1 = __webpack_require__(4);
 const graphql_2 = __webpack_require__(4);
-const products_model_1 = __webpack_require__(11);
+const products_model_1 = __webpack_require__(12);
 const products_service_1 = __webpack_require__(6);
-const products_input_1 = __webpack_require__(12);
+const products_input_1 = __webpack_require__(14);
+const common_1 = __webpack_require__(1);
+const constant_1 = __webpack_require__(15);
 let ProductsResolver = class ProductsResolver {
     constructor(productService) {
         this.productService = productService;
@@ -186,7 +199,13 @@ let ProductsResolver = class ProductsResolver {
         return { __typename: "Product", id: product.id };
     }
     async create(input) {
-        return this.productService.create(Object.assign({}, input));
+        try {
+            let payload = Object.assign({}, input);
+            return await this.productService.create(payload);
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error.message, `${constant_1.staticError.product}_CREATE.ERROR`);
+        }
     }
 };
 __decorate([
@@ -217,7 +236,7 @@ exports.ProductsResolver = ProductsResolver;
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -230,10 +249,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Product = void 0;
 const graphql_1 = __webpack_require__(4);
+const global_enum_1 = __webpack_require__(13);
 let Product = class Product {
     constructor(product) {
         Object.assign(product);
@@ -252,17 +272,39 @@ __decorate([
     graphql_1.Field(),
     __metadata("design:type", String)
 ], Product.prototype, "price", void 0);
+__decorate([
+    graphql_1.Field(() => global_enum_1.PRODUCT_UNIT, { nullable: true }),
+    __metadata("design:type", typeof (_a = typeof global_enum_1.PRODUCT_UNIT !== "undefined" && global_enum_1.PRODUCT_UNIT) === "function" ? _a : Object)
+], Product.prototype, "unit", void 0);
 Product = __decorate([
     graphql_1.ObjectType(),
     graphql_1.Directive("@extends"),
     graphql_1.Directive('@key(fields: "id")'),
-    __metadata("design:paramtypes", [typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object])
 ], Product);
 exports.Product = Product;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PRODUCT_UNIT = void 0;
+const graphql_1 = __webpack_require__(4);
+var PRODUCT_UNIT;
+(function (PRODUCT_UNIT) {
+    PRODUCT_UNIT["USD"] = "Usd";
+    PRODUCT_UNIT["INR"] = "Inr";
+})(PRODUCT_UNIT = exports.PRODUCT_UNIT || (exports.PRODUCT_UNIT = {}));
+graphql_1.registerEnumType(PRODUCT_UNIT, {
+    name: 'PRODUCT_UNIT',
+});
+
+
+/***/ }),
+/* 14 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -275,9 +317,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductUpdateInput = exports.CreateProductInput = void 0;
 const graphql_1 = __webpack_require__(4);
+const global_enum_1 = __webpack_require__(13);
 let CreateProductInput = class CreateProductInput {
 };
 __decorate([
@@ -288,6 +332,10 @@ __decorate([
     graphql_1.Field(() => String, { nullable: false }),
     __metadata("design:type", String)
 ], CreateProductInput.prototype, "name", void 0);
+__decorate([
+    graphql_1.Field(() => global_enum_1.PRODUCT_UNIT, { nullable: true }),
+    __metadata("design:type", typeof (_a = typeof global_enum_1.PRODUCT_UNIT !== "undefined" && global_enum_1.PRODUCT_UNIT) === "function" ? _a : Object)
+], CreateProductInput.prototype, "unit", void 0);
 CreateProductInput = __decorate([
     graphql_1.InputType()
 ], CreateProductInput);
@@ -305,7 +353,28 @@ exports.ProductUpdateInput = ProductUpdateInput;
 
 
 /***/ }),
-/* 13 */
+/* 15 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.jwtConstants = exports.staticError = void 0;
+exports.staticError = {
+    alreayRent: "already on rent",
+    userExist: "User already exist",
+    userNotFound: "User not found",
+    passwordNotMatched: "Password Not Matched",
+    user: "USER_LOGIN",
+    product: 'PRODUCT'
+};
+exports.jwtConstants = {
+    secret: 'micro',
+    expiresIn: '1d',
+};
+
+
+/***/ }),
+/* 16 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 

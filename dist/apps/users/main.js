@@ -108,7 +108,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersResolver = void 0;
 const graphql_1 = __webpack_require__(5);
@@ -124,8 +124,8 @@ let UsersResolver = class UsersResolver {
     resolveReference(reference) {
         return this.usersService.findOneById(reference.id);
     }
-    getUser(id) {
-        return this.usersService.findOneById(id);
+    async getUser(id) {
+        return await this.usersService.findOneById(id);
     }
     async create(input) {
         let payload = Object.assign({}, input);
@@ -133,7 +133,6 @@ let UsersResolver = class UsersResolver {
         const existUser = await this.usersService.findOne({
             email: payload.email,
         });
-        console.log({ existUser });
         if (existUser)
             throw new Error(`${constant_1.staticError.userExist}`);
         return this.usersService.create(Object.assign({}, payload));
@@ -150,8 +149,8 @@ let UsersResolver = class UsersResolver {
     }
     async login(input) {
         try {
-            input.email = input.email.toLowerCase();
-            return await this.usersService.login(input);
+            let payload = Object.assign(Object.assign({}, input), { email: input.email.toLowerCase() });
+            return await this.usersService.login(payload);
         }
         catch (error) {
             throw new common_1.BadRequestException(error.message, `${constant_1.staticError.user}_LOGIN.ERROR`);
@@ -169,32 +168,32 @@ __decorate([
     __param(0, graphql_1.Args("id", { type: () => graphql_1.Int })),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", typeof (_a = typeof user_model_1.User !== "undefined" && user_model_1.User) === "function" ? _a : Object)
+    __metadata("design:returntype", Promise)
 ], UsersResolver.prototype, "getUser", null);
 __decorate([
     graphql_1.Mutation(() => user_model_1.User, { name: "createUser" }),
     __param(0, graphql_1.Args("input")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof user_input_1.CreateUserInput !== "undefined" && user_input_1.CreateUserInput) === "function" ? _b : Object]),
+    __metadata("design:paramtypes", [typeof (_a = typeof user_input_1.CreateUserInput !== "undefined" && user_input_1.CreateUserInput) === "function" ? _a : Object]),
     __metadata("design:returntype", Promise)
 ], UsersResolver.prototype, "create", null);
 __decorate([
     graphql_1.Mutation(() => user_model_1.User, { name: "updateUser" }),
     __param(0, graphql_1.Args("input")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_c = typeof user_input_1.UserUpdateInput !== "undefined" && user_input_1.UserUpdateInput) === "function" ? _c : Object]),
+    __metadata("design:paramtypes", [typeof (_b = typeof user_input_1.UserUpdateInput !== "undefined" && user_input_1.UserUpdateInput) === "function" ? _b : Object]),
     __metadata("design:returntype", Promise)
 ], UsersResolver.prototype, "update", null);
 __decorate([
     graphql_1.Mutation(() => user_model_1.LoginResponse, { name: "login" }),
     __param(0, graphql_1.Args("input")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_d = typeof user_input_1.LoginInput !== "undefined" && user_input_1.LoginInput) === "function" ? _d : Object]),
+    __metadata("design:paramtypes", [typeof (_c = typeof user_input_1.LoginInput !== "undefined" && user_input_1.LoginInput) === "function" ? _c : Object]),
     __metadata("design:returntype", Promise)
 ], UsersResolver.prototype, "login", null);
 UsersResolver = __decorate([
     graphql_1.Resolver((of) => user_model_1.User),
-    __metadata("design:paramtypes", [typeof (_e = typeof users_service_1.UsersService !== "undefined" && users_service_1.UsersService) === "function" ? _e : Object])
+    __metadata("design:paramtypes", [typeof (_d = typeof users_service_1.UsersService !== "undefined" && users_service_1.UsersService) === "function" ? _d : Object])
 ], UsersResolver);
 exports.UsersResolver = UsersResolver;
 
@@ -288,8 +287,8 @@ let UsersService = class UsersService {
         this.userModel = userModel;
         this.posts = [{ id: 1, name: "melkir", email: "test@gmail.com" }];
     }
-    findOneById(postId) {
-        return this.posts.find(({ id }) => id === postId);
+    async findOneById(postId) {
+        return await this.posts.find(({ id }) => id === postId);
     }
     async findAll() {
         return await this.userModel.aggregate();
@@ -307,14 +306,13 @@ let UsersService = class UsersService {
         });
         return await this.userModel.create(payload);
     }
-    async create(payload) {
-        const hashedPassword = await bcrypt.hash(payload.password, 12);
-        payload.password = hashedPassword;
-        payload.email = payload.email.toLowerCase();
+    async create(input) {
+        const hashedPassword = await bcrypt.hash(input.password, 12);
+        let payload = Object.assign(Object.assign({}, input), { email: input.email.toLowerCase(), password: hashedPassword });
         return await this.userModel.create(payload);
     }
-    async update(payload) {
-        payload.email = payload.email.toLowerCase();
+    async update(input) {
+        let payload = Object.assign(Object.assign({}, input), { email: input.email.toLowerCase() });
         return await this.userModel.findOneAndUpdate({
             _id: new mongodb_1.ObjectId(payload._id),
         }, ...payload, {
@@ -336,8 +334,7 @@ let UsersService = class UsersService {
         if (!existUser) {
             throw new Error(constant_1.staticError.userNotFound);
         }
-        let result = null;
-        result = await bcrypt.compare(loginInfo.password, existUser.password);
+        const result = await bcrypt.compare(loginInfo.password, existUser.password);
         if (result) {
             const payload = {
                 userId: new mongodb_1.ObjectId(existUser._id),
@@ -394,6 +391,7 @@ exports.staticError = {
     userNotFound: "User not found",
     passwordNotMatched: "Password Not Matched",
     user: "USER_LOGIN",
+    product: 'PRODUCT'
 };
 exports.jwtConstants = {
     secret: 'micro',

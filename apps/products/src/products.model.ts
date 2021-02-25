@@ -15,8 +15,8 @@ export class Product {
   @Field()
   price: string;
 
-  @Field(() => String)
-  unit: string;
+  @Field(() => PRODUCT_UNIT,{nullable:true})
+  unit: PRODUCT_UNIT;
 
   constructor(product: Partial<Product>) {
     Object.assign(product);

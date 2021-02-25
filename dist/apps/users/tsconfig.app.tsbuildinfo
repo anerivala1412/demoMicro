@@ -3976,8 +3976,8 @@
         "affectsGlobalScope": false
       },
       "../../../apps/users/src/user.interface.ts": {
-        "version": "6ac08010f63d1d565b9a2d97daa5c4c73472edbcbfd54306e22b4137665de7be",
-        "signature": "38355c10e9e4a3704419fe178e232e491272e2be714909013d6710130e7f12e9",
+        "version": "9e22154b4e8794fde3d6752b9b7081da5d99ee26d34cba1cd8bb83221e60bf4a",
+        "signature": "01435f13f61baa6a34f52c696fd29c783b60c2c878a252bb1f7d4e3c0f1c7e61",
         "affectsGlobalScope": false
       },
       "../../../node_modules/@types/jsonwebtoken/index.d.ts": {
@@ -4021,18 +4021,18 @@
         "affectsGlobalScope": false
       },
       "../../../apps/constant.ts": {
-        "version": "717581ffeda582906d661bc09b9a9908000f7be1e76e4a42e91f96c7c91a153c",
-        "signature": "a08b2962265b25c2340d0cf8c07007855d3d81662d2ba9a9a47c16a56469c24d",
+        "version": "69138fa3a457a729cd46f2f0959241e65965a32ea900b99064c2ec8f9dff4743",
+        "signature": "94509f604680166ddaef9f981b949083a890394853286ce42f36870785183e69",
         "affectsGlobalScope": false
       },
       "../../../apps/users/src/users.service.ts": {
-        "version": "9458549f14e1cbd1c035aa04b28a94d81fd3af2122c7ce1417cda2d5290d2b8d",
-        "signature": "c7d70d43a62aefdbb77b1fc049f87d694f8538b39de664d33069267069f1a2ac",
+        "version": "a90123ac61b06ef2a3a5ab9d34c860e60b5372f8f09d2d6944e2433cdb5106d3",
+        "signature": "52f2e0a4f8c8eba874530c8631508b68af5e9d8a37e00a786d249f7ac077d06d",
         "affectsGlobalScope": false
       },
       "../../../apps/users/src/users.resolver.ts": {
-        "version": "bf6d723a45963e24a46680ba95a0b1e947e63945503c40bc11c58f1b1a7cdb15",
-        "signature": "ba6732481507a949e4157db5b30cd68dbde4dd1fceed3ec753f532f1b864c6b2",
+        "version": "9416d8dc617b9b1c85f435d191cffa1d5e48c6efbc8bc1436c9c9937fe6e7ae0",
+        "signature": "cd638b481478fe4630dd37aa9680d05dde52a246b83ec00b630c4fd1ced0fd57",
         "affectsGlobalScope": false
       },
       "../../../apps/users/src/user.schema.ts": {

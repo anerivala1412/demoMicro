@@ -9,7 +9,7 @@ export class CreateProductInput {
   @Field(() => String, { nullable: false })
   name: string;
 
-  @Field(() => PRODUCT_UNIT, { nullable: false })
+  @Field(() => PRODUCT_UNIT, { nullable: true })
   unit: PRODUCT_UNIT;
 }
 

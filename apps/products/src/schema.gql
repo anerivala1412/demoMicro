@@ -16,7 +16,13 @@ type Product {
   id: ID!
   name: String!
   price: String!
+  unit: PRODUCT_UNIT
   getProduct: Product!
+}
+
+enum PRODUCT_UNIT {
+  USD
+  INR
 }
 
 type User {
@@ -36,4 +42,5 @@ type Mutation {
 input CreateProductInput {
   price: String!
   name: String!
+  unit: PRODUCT_UNIT
 }

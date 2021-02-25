@@ -1,8 +1,8 @@
 import { Document, ObjectId } from "mongoose";
 
 export interface IRent extends Document {
-  userId: ObjectId;
-  productId: ObjectId;
+  userId: string;
+  productId: string;
   createdAt: string;
   updatedAt: string;
 }
