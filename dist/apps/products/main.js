@@ -50,7 +50,7 @@ const products_service_1 = __webpack_require__(6);
 const mongoose_1 = __webpack_require__(7);
 const products_schema_1 = __webpack_require__(10);
 const products_resolver_1 = __webpack_require__(11);
-const user_model_1 = __webpack_require__(16);
+const user_model_1 = __webpack_require__(21);
 const products_model_1 = __webpack_require__(12);
 let ProductsModule = class ProductsModule {
 };
@@ -110,8 +110,8 @@ let ProductsService = class ProductsService {
     constructor(productModel) {
         this.productModel = productModel;
     }
-    async findAll() {
-        return await this.productModel.find();
+    async findAll(query) {
+        return await this.productModel.find(Object.assign({}, query));
     }
     async create(input) {
         return await this.productModel.create(input);
@@ -178,22 +178,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductsResolver = void 0;
 const graphql_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
 const graphql_2 = __webpack_require__(4);
 const products_model_1 = __webpack_require__(12);
 const products_service_1 = __webpack_require__(6);
 const products_input_1 = __webpack_require__(14);
-const common_1 = __webpack_require__(1);
 const constant_1 = __webpack_require__(15);
+const user_interface_1 = __webpack_require__(16);
+const current_user_decorator_1 = __webpack_require__(17);
+const gql_auth_guard_1 = __webpack_require__(18);
 let ProductsResolver = class ProductsResolver {
     constructor(productService) {
         this.productService = productService;
     }
     async getProducts() {
-        return await this.productService.findAll();
+        return await this.productService.findAll({});
+    }
+    async getUserProducts(user) {
+        console.log({ user });
+        return await this.productService.findAll({
+            userId: user._id,
+        });
     }
     getProduct(product) {
         return { __typename: "Product", id: product.id };
@@ -215,22 +224,30 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductsResolver.prototype, "getProducts", null);
 __decorate([
+    common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),
+    graphql_1.Query((returns) => [products_model_1.Product], { name: "getUserProducts" }),
+    __param(0, current_user_decorator_1.CurrentUser()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof user_interface_1.IUser !== "undefined" && user_interface_1.IUser) === "function" ? _a : Object]),
+    __metadata("design:returntype", Promise)
+], ProductsResolver.prototype, "getUserProducts", null);
+__decorate([
     graphql_1.ResolveField((of) => products_model_1.Product, { name: "getProduct" }),
     __param(0, graphql_1.Parent()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_a = typeof products_model_1.Product !== "undefined" && products_model_1.Product) === "function" ? _a : Object]),
+    __metadata("design:paramtypes", [typeof (_b = typeof products_model_1.Product !== "undefined" && products_model_1.Product) === "function" ? _b : Object]),
     __metadata("design:returntype", void 0)
 ], ProductsResolver.prototype, "getProduct", null);
 __decorate([
     graphql_1.Mutation(() => products_model_1.Product, { name: "createProduct" }),
     __param(0, graphql_1.Args("input")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof products_input_1.CreateProductInput !== "undefined" && products_input_1.CreateProductInput) === "function" ? _b : Object]),
+    __metadata("design:paramtypes", [typeof (_c = typeof products_input_1.CreateProductInput !== "undefined" && products_input_1.CreateProductInput) === "function" ? _c : Object]),
     __metadata("design:returntype", Promise)
 ], ProductsResolver.prototype, "create", null);
 ProductsResolver = __decorate([
     graphql_2.Resolver((of) => products_model_1.Product),
-    __metadata("design:paramtypes", [typeof (_c = typeof products_service_1.ProductsService !== "undefined" && products_service_1.ProductsService) === "function" ? _c : Object])
+    __metadata("design:paramtypes", [typeof (_d = typeof products_service_1.ProductsService !== "undefined" && products_service_1.ProductsService) === "function" ? _d : Object])
 ], ProductsResolver);
 exports.ProductsResolver = ProductsResolver;
 
@@ -375,6 +392,104 @@ exports.jwtConstants = {
 
 /***/ }),
 /* 16 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+/* 17 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CurrentUser = void 0;
+const common_1 = __webpack_require__(1);
+const graphql_1 = __webpack_require__(4);
+exports.CurrentUser = common_1.createParamDecorator((data, context) => {
+    var _a;
+    const ctx = graphql_1.GqlExecutionContext.create(context);
+    console.log({ ctx });
+    return (_a = ctx.getContext().req) === null || _a === void 0 ? void 0 : _a.user;
+});
+
+
+/***/ }),
+/* 18 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GqlAuthGuard = void 0;
+const common_1 = __webpack_require__(1);
+const passport_1 = __webpack_require__(19);
+const graphql_1 = __webpack_require__(4);
+const core_1 = __webpack_require__(2);
+const jwt_1 = __webpack_require__(20);
+const constant_1 = __webpack_require__(15);
+let GqlAuthGuard = class GqlAuthGuard extends passport_1.AuthGuard("jwt") {
+    constructor(reflector) {
+        super();
+        this.reflector = reflector;
+    }
+    getRequest(context) {
+        const ctx = graphql_1.GqlExecutionContext.create(context);
+        const res = ctx.getContext().req;
+        return res;
+    }
+    async canActivate(context) {
+        const ctx = graphql_1.GqlExecutionContext.create(context);
+        const res = ctx.getContext().req;
+        const req = this.getRequest(context);
+        const authHeader = req.headers.authorization;
+        if (!authHeader) {
+            throw new common_1.BadRequestException("Authorization header not found.");
+        }
+        const [type, token] = authHeader.split(" ");
+        if (type !== "Bearer") {
+            throw new common_1.BadRequestException(`Authentication type \'Bearer\' required. Found \'${type}\'`);
+        }
+        const jwt = new jwt_1.JwtService({
+            secret: constant_1.jwtConstants.secret,
+            signOptions: { expiresIn: constant_1.jwtConstants.expiresIn },
+        });
+        const userData = jwt.decode(token);
+        Object.assign(req, { user: { _id: userData.userId } });
+        return true;
+    }
+};
+GqlAuthGuard = __decorate([
+    common_1.Injectable(),
+    __metadata("design:paramtypes", [typeof (_a = typeof core_1.Reflector !== "undefined" && core_1.Reflector) === "function" ? _a : Object])
+], GqlAuthGuard);
+exports.GqlAuthGuard = GqlAuthGuard;
+
+
+/***/ }),
+/* 19 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/passport");;
+
+/***/ }),
+/* 20 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/jwt");;
+
+/***/ }),
+/* 21 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 

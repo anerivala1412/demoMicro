@@ -4001,13 +4001,13 @@
         "affectsGlobalScope": false
       },
       "../../../apps/enum/global.enum.ts": {
-        "version": "351462c64311729a73880eba289ee13ace204709a3b56db9f9db6004c9e9ce78",
+        "version": "39656af782f1ac1e3be00f9fe5763f6373785f661f37d9966e40cbf2ef3996ef",
         "signature": "bb542fcded8b87f2803020cead71edc53a557dc07fe46747a5f9fba53f876956",
         "affectsGlobalScope": false
       },
       "../../../apps/products/src/products.model.ts": {
-        "version": "e678bd0a693fc29cf9d91dd065a19aed285734447c4b98af6e748c9e5b5f7d78",
-        "signature": "a0cddc70efa8d38acec67c869053ca9dcbd0e8b4ba3ca53392ad8b5254383b77",
+        "version": "46b71608f2b859944ec2013042a5423f996d06382421f30d72f0dda222c2c09a",
+        "signature": "f2f967870c5ca811b352b498b4a789e7a356498adbea306176695aee33f8ad42",
         "affectsGlobalScope": false
       },
       "../../../apps/config/date.scalar.ts": {
@@ -4028,16 +4028,6 @@
       "../../../apps/products/src/products.service.ts": {
         "version": "f0a6724947338f4f48db143949d496cfaf15cabe0602cb2bafcad6472e4eac2e",
         "signature": "e0ed36229425c4c6aac382c989fe1550223bfe4e157f8afec75fd0f568191fbd",
-        "affectsGlobalScope": false
-      },
-      "../../../apps/posts/src/post.model.ts": {
-        "version": "c451b3b30558d1bf907967bb78d13ca012c6b83bc8b507d995d1b6cce0f5d2a2",
-        "signature": "0d82573270c88400ec13ec5ebd045b3d50706988c6091fb086e3be8c218be319",
-        "affectsGlobalScope": false
-      },
-      "../../../apps/posts/src/user.model.ts": {
-        "version": "b9aa83dcf04dd92d4c0309846f0fa37283d338a6e00024a72df5e145e68074fe",
-        "signature": "60b3f60b4586480a556b6ed03587c3333b156f09f74054be636afa3e16ada64a",
         "affectsGlobalScope": false
       },
       "../../../apps/users/src/user.interface.ts": {
@@ -4091,7 +4081,7 @@
         "affectsGlobalScope": false
       },
       "../../../apps/rents/src/rents.resolver.ts": {
-        "version": "9ca996157d60c4cdb4bc0e0906269b14ce4b2df686ffcd01f7b7a6f0eede5289",
+        "version": "21ded6a2084a3c3725031b8846fdf8ddd6e2fe0b939f36aec1637d99b88bd575",
         "signature": "8ebfd98b3ca69124dd8063e02096e198ee9750da71a553ba524429675e5874b1",
         "affectsGlobalScope": false
       },
@@ -4444,12 +4434,7 @@
       "../../../apps/config/date.scalar.ts": [
         "../../../node_modules/graphql/index.d.ts"
       ],
-      "../../../apps/posts/src/post.model.ts": [
-        "../../../apps/posts/src/user.model.ts",
-        "../../../node_modules/@nestjs/graphql/index.d.ts"
-      ],
-      "../../../apps/posts/src/user.model.ts": [
-        "../../../apps/posts/src/post.model.ts",
+      "../../../apps/enum/global.enum.ts": [
         "../../../node_modules/@nestjs/graphql/index.d.ts"
       ],
       "../../../apps/products/src/products.input.ts": [
@@ -4516,13 +4501,13 @@
         "../../../node_modules/@types/node/path.d.ts"
       ],
       "../../../apps/rents/src/rents.resolver.ts": [
-        "../../../apps/posts/src/user.model.ts",
         "../../../apps/products/src/products.model.ts",
         "../../../apps/products/src/products.service.ts",
         "../../../apps/rents/src/rents.input.ts",
         "../../../apps/rents/src/rents.interface.ts",
         "../../../apps/rents/src/rents.model.ts",
         "../../../apps/rents/src/rents.service.ts",
+        "../../../apps/users/src/user.model.ts",
         "../../../apps/users/src/users.service.ts",
         "../../../node_modules/@nestjs/graphql/index.d.ts",
         "../../../node_modules/@types/mongodb/index.d.ts"
@@ -8055,18 +8040,15 @@
       "../../../apps/config/date.scalar.ts": [
         "../../../node_modules/graphql/index.d.ts"
       ],
-      "../../../apps/posts/src/post.model.ts": [
-        "../../../apps/posts/src/user.model.ts"
-      ],
-      "../../../apps/posts/src/user.model.ts": [
-        "../../../apps/posts/src/post.model.ts"
-      ],
       "../../../apps/products/src/products.input.ts": [
         "../../../apps/enum/global.enum.ts",
         "../../../node_modules/@nestjs/common/index.d.ts"
       ],
       "../../../apps/products/src/products.interface.ts": [
         "../../../node_modules/mongoose/index.d.ts"
+      ],
+      "../../../apps/products/src/products.model.ts": [
+        "../../../apps/enum/global.enum.ts"
       ],
       "../../../apps/products/src/products.resolver.ts": [
         "../../../apps/products/src/products.input.ts",
@@ -11609,8 +11591,6 @@
       "../../../apps/config/date.scalar.ts",
       "../../../apps/constant.ts",
       "../../../apps/enum/global.enum.ts",
-      "../../../apps/posts/src/post.model.ts",
-      "../../../apps/posts/src/user.model.ts",
       "../../../apps/products/src/products.input.ts",
       "../../../apps/products/src/products.interface.ts",
       "../../../apps/products/src/products.model.ts",

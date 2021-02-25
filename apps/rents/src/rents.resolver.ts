@@ -8,8 +8,8 @@ import { RentInput } from "./rents.input";
 import { Product } from "../../products/src/products.model";
 import { IRent } from "./rents.interface";
 import { ProductsService } from "../../products/src/products.service";
-import { User } from "../../posts/src/user.model";
 import { UsersService } from "../../users/src/users.service";
+import { User } from "../../users/src/user.model";
 
 @Resolver((of) => Rent)
 export class RentResolver {

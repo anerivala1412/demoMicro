@@ -1,0 +1,89 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @key(fields: String!) on OBJECT | INTERFACE
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external on OBJECT | FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+}
+
+type Product {
+  id: ID!
+  name: String!
+  price: String!
+  unit: PRODUCT_UNIT
+  getProduct: Product!
+}
+
+enum PRODUCT_UNIT {
+  USD
+  INR
+}
+
+type Rent {
+  id: ID!
+  productId: Product!
+  userId: User!
+  createdAt: DateTimeScalar
+  updatedAt: DateTimeScalar
+}
+
+"""A date and time, represented as an ISO-8601 string"""
+scalar DateTimeScalar
+
+type Query {
+  getProducts: [Product!]!
+  user(id: Int!): User!
+}
+
+type Mutation {
+  createRent(input: RentInput!): Rent!
+  createProduct(input: CreateProductInput!): Product!
+  createUser(input: CreateUserInput!): User!
+  updateUser(input: UserUpdateInput!): User!
+  login(input: LoginInput!): LoginResponse!
+}
+
+input RentInput {
+  userId: String!
+  productId: String!
+}
+
+input CreateProductInput {
+  price: String!
+  name: String!
+  unit: PRODUCT_UNIT
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+input UserUpdateInput {
+  name: String!
+  password: String!
+  _id: String!
+}
+
+type LoginResponse {
+  token: String!
+  userInfo: User
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}

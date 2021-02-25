@@ -4116,7 +4116,7 @@
         "affectsGlobalScope": false
       },
       "../../../apps/users/src/users.module.ts": {
-        "version": "46010d9d8ae4f98c512fb43890054b0e7e3fe6814b59db7273b1d9648f789931",
+        "version": "6475ecc0e10ba30c63f736c1a74b1d7d182ad4f321c15d3dee93d7d40977b5ca",
         "signature": "aa1725e38b5a0b4009f6a74f296f173e7926c119a60454dbd2e523861735df69",
         "affectsGlobalScope": false
       },
@@ -4273,6 +4273,21 @@
       "../../../node_modules/@types/parse-json/index.d.ts": {
         "version": "2b8264b2fefd7367e0f20e2c04eed5d3038831fe00f5efbc110ff0131aab899b",
         "signature": "2b8264b2fefd7367e0f20e2c04eed5d3038831fe00f5efbc110ff0131aab899b",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/@types/passport/index.d.ts": {
+        "version": "d504adcb8e0c47a5e8863da80db139e680b349842bd7c9d4518d2a1019c140a7",
+        "signature": "d504adcb8e0c47a5e8863da80db139e680b349842bd7c9d4518d2a1019c140a7",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/@types/passport-strategy/index.d.ts": {
+        "version": "29d59e921bc723594bbfc98230d24f38f0d5a669f28fcf989b7468f4f95b7c52",
+        "signature": "29d59e921bc723594bbfc98230d24f38f0d5a669f28fcf989b7468f4f95b7c52",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/@types/passport-local/index.d.ts": {
+        "version": "e50f9ae34bb92232533e3a32848970dd04f874a8f64d3ae48980e062b6489f26",
+        "signature": "e50f9ae34bb92232533e3a32848970dd04f874a8f64d3ae48980e062b6489f26",
         "affectsGlobalScope": false
       },
       "../../../node_modules/@types/prettier/index.d.ts": {
@@ -6515,6 +6530,19 @@
       "../../../node_modules/@types/node/zlib.d.ts": [
         "../../../node_modules/@types/node/stream.d.ts",
         "../../../node_modules/@types/node/zlib.d.ts"
+      ],
+      "../../../node_modules/@types/passport-local/index.d.ts": [
+        "../../../node_modules/@types/express/index.d.ts",
+        "../../../node_modules/@types/passport-strategy/index.d.ts",
+        "../../../node_modules/@types/passport/index.d.ts"
+      ],
+      "../../../node_modules/@types/passport-strategy/index.d.ts": [
+        "../../../node_modules/@types/express/index.d.ts",
+        "../../../node_modules/@types/passport/index.d.ts"
+      ],
+      "../../../node_modules/@types/passport/index.d.ts": [
+        "../../../node_modules/@types/express/index.d.ts",
+        "../../../node_modules/@types/node/http.d.ts"
       ],
       "../../../node_modules/@types/serve-static/index.d.ts": [
         "../../../node_modules/@types/mime/index.d.ts",
@@ -10058,6 +10086,19 @@
         "../../../node_modules/@types/node/stream.d.ts",
         "../../../node_modules/@types/node/zlib.d.ts"
       ],
+      "../../../node_modules/@types/passport-local/index.d.ts": [
+        "../../../node_modules/@types/express/index.d.ts",
+        "../../../node_modules/@types/passport-strategy/index.d.ts",
+        "../../../node_modules/@types/passport/index.d.ts"
+      ],
+      "../../../node_modules/@types/passport-strategy/index.d.ts": [
+        "../../../node_modules/@types/express/index.d.ts",
+        "../../../node_modules/@types/passport/index.d.ts"
+      ],
+      "../../../node_modules/@types/passport/index.d.ts": [
+        "../../../node_modules/@types/express/index.d.ts",
+        "../../../node_modules/@types/node/http.d.ts"
+      ],
       "../../../node_modules/@types/serve-static/index.d.ts": [
         "../../../node_modules/@types/mime/index.d.ts",
         "../../../node_modules/@types/node/http.d.ts",
@@ -12058,6 +12099,9 @@
       "../../../node_modules/@types/node/zlib.d.ts",
       "../../../node_modules/@types/normalize-package-data/index.d.ts",
       "../../../node_modules/@types/parse-json/index.d.ts",
+      "../../../node_modules/@types/passport-local/index.d.ts",
+      "../../../node_modules/@types/passport-strategy/index.d.ts",
+      "../../../node_modules/@types/passport/index.d.ts",
       "../../../node_modules/@types/prettier/index.d.ts",
       "../../../node_modules/@types/qs/index.d.ts",
       "../../../node_modules/@types/range-parser/index.d.ts",

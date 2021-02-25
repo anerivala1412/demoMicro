@@ -28,7 +28,7 @@ import dbConfiguration from "./../../config/database";
     //   }),
     //   inject: [ConfigService],
     // }),
-    
+
     MongooseModule.forRoot("mongodb://localhost/microdb"),
     GraphQLFederationModule.forRoot({
       autoSchemaFile: join(process.cwd(), "apps/users/src/schema.gql"),

@@ -1,10 +1,11 @@
 import { Module } from "@nestjs/common";
 import { GraphQLGatewayModule } from "@nestjs/graphql";
 import { MongooseModule } from "@nestjs/mongoose";
+import { APP_GUARD } from "@nestjs/core";
 
-import { AppService } from "./app.service";
 import { userSchema } from "../../users/src/user.schema";
 import { productSchema } from "../../products/src/products.schema";
+import { RolesGuard } from "../../auth/role.guard";
 
 @Module({
   imports: [
@@ -18,12 +19,16 @@ import { productSchema } from "../../products/src/products.schema";
       gateway: {
         serviceList: [
           { name: "users", url: "http://[::1]:3001/graphql" },
-          // { name: "posts", url: "http://[::1]:3002/graphql" },
           { name: "products", url: "http://[::1]:3003/graphql" },
         ],
       },
     }),
   ],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

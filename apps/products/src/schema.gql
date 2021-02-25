@@ -33,6 +33,7 @@ type User {
 
 type Query {
   getProducts: [Product!]!
+  getUserProducts: [Product!]!
 }
 
 type Mutation {

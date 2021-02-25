@@ -46,12 +46,12 @@ const rents_schema_1 = __webpack_require__(10);
 const rents_resolver_1 = __webpack_require__(11);
 const user_model_1 = __webpack_require__(14);
 const products_model_1 = __webpack_require__(15);
-const products_resolver_1 = __webpack_require__(26);
-const products_service_1 = __webpack_require__(20);
-const users_resolver_1 = __webpack_require__(29);
-const users_service_1 = __webpack_require__(23);
-const products_schema_1 = __webpack_require__(31);
-const user_schema_1 = __webpack_require__(32);
+const products_resolver_1 = __webpack_require__(25);
+const products_service_1 = __webpack_require__(21);
+const users_resolver_1 = __webpack_require__(27);
+const users_service_1 = __webpack_require__(22);
+const products_schema_1 = __webpack_require__(29);
+const user_schema_1 = __webpack_require__(30);
 let RentsModule = class RentsModule {
 };
 RentsModule = __decorate([
@@ -230,12 +230,12 @@ const graphql_2 = __webpack_require__(6);
 const mongodb_1 = __webpack_require__(12);
 const rents_model_1 = __webpack_require__(13);
 const rents_service_1 = __webpack_require__(7);
-const rents_input_1 = __webpack_require__(18);
+const rents_input_1 = __webpack_require__(19);
 const products_model_1 = __webpack_require__(15);
-const rents_interface_1 = __webpack_require__(19);
-const products_service_1 = __webpack_require__(20);
-const user_model_1 = __webpack_require__(21);
-const users_service_1 = __webpack_require__(23);
+const rents_interface_1 = __webpack_require__(20);
+const products_service_1 = __webpack_require__(21);
+const users_service_1 = __webpack_require__(22);
+const user_model_1 = __webpack_require__(14);
 let RentResolver = class RentResolver {
     constructor(rentService, productService, userService) {
         this.rentService = rentService;
@@ -314,7 +314,7 @@ exports.Rent = void 0;
 const graphql_1 = __webpack_require__(6);
 const user_model_1 = __webpack_require__(14);
 const products_model_1 = __webpack_require__(15);
-const date_scalar_1 = __webpack_require__(16);
+const date_scalar_1 = __webpack_require__(17);
 let Rent = class Rent {
     constructor(rent) {
         Object.assign(rent);
@@ -421,10 +421,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Product = void 0;
 const graphql_1 = __webpack_require__(6);
+const global_enum_1 = __webpack_require__(16);
 let Product = class Product {
     constructor(product) {
         Object.assign(product);
@@ -444,14 +445,14 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "price", void 0);
 __decorate([
-    graphql_1.Field(() => String),
-    __metadata("design:type", String)
+    graphql_1.Field(() => global_enum_1.PRODUCT_UNIT, { nullable: true }),
+    __metadata("design:type", typeof (_a = typeof global_enum_1.PRODUCT_UNIT !== "undefined" && global_enum_1.PRODUCT_UNIT) === "function" ? _a : Object)
 ], Product.prototype, "unit", void 0);
 Product = __decorate([
     graphql_1.ObjectType(),
     graphql_1.Directive("@extends"),
     graphql_1.Directive('@key(fields: "id")'),
-    __metadata("design:paramtypes", [typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object])
 ], Product);
 exports.Product = Product;
 
@@ -462,8 +463,26 @@ exports.Product = Product;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PRODUCT_UNIT = void 0;
+const graphql_1 = __webpack_require__(6);
+var PRODUCT_UNIT;
+(function (PRODUCT_UNIT) {
+    PRODUCT_UNIT["USD"] = "Usd";
+    PRODUCT_UNIT["INR"] = "Inr";
+})(PRODUCT_UNIT = exports.PRODUCT_UNIT || (exports.PRODUCT_UNIT = {}));
+graphql_1.registerEnumType(PRODUCT_UNIT, {
+    name: 'PRODUCT_UNIT',
+});
+
+
+/***/ }),
+/* 17 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DATETIME = void 0;
-const graphql_1 = __webpack_require__(17);
+const graphql_1 = __webpack_require__(18);
 exports.DATETIME = new graphql_1.GraphQLScalarType({
     name: 'DateTimeScalar',
     description: 'A date and time, represented as an ISO-8601 string',
@@ -474,13 +493,13 @@ exports.DATETIME = new graphql_1.GraphQLScalarType({
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ ((module) => {
 
 module.exports = require("graphql");;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -513,7 +532,7 @@ exports.RentInput = RentInput;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -521,7 +540,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -567,97 +586,7 @@ exports.ProductsService = ProductsService;
 
 
 /***/ }),
-/* 21 */
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.User = void 0;
-const graphql_1 = __webpack_require__(6);
-const post_model_1 = __webpack_require__(22);
-let User = class User {
-    constructor(user) {
-        Object.assign(user);
-    }
-};
-__decorate([
-    graphql_1.Field((type) => graphql_1.ID),
-    graphql_1.Directive('@external'),
-    __metadata("design:type", Number)
-], User.prototype, "id", void 0);
-__decorate([
-    graphql_1.Field((type) => [post_model_1.Post]),
-    __metadata("design:type", Array)
-], User.prototype, "posts", void 0);
-User = __decorate([
-    graphql_1.ObjectType(),
-    graphql_1.Directive('@extends'),
-    graphql_1.Directive('@key(fields: "id")'),
-    __metadata("design:paramtypes", [typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object])
-], User);
-exports.User = User;
-
-
-/***/ }),
 /* 22 */
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a, _b;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Post = void 0;
-const graphql_1 = __webpack_require__(6);
-const user_model_1 = __webpack_require__(21);
-let Post = class Post {
-    constructor(post) {
-        Object.assign(this, post);
-    }
-};
-__decorate([
-    graphql_1.Field((type) => graphql_1.ID),
-    __metadata("design:type", Number)
-], Post.prototype, "id", void 0);
-__decorate([
-    graphql_1.Field(),
-    __metadata("design:type", String)
-], Post.prototype, "title", void 0);
-__decorate([
-    graphql_1.Field((type) => graphql_1.Int, { nullable: true }),
-    __metadata("design:type", Number)
-], Post.prototype, "votes", void 0);
-__decorate([
-    graphql_1.Field((type) => user_model_1.User),
-    __metadata("design:type", typeof (_a = typeof user_model_1.User !== "undefined" && user_model_1.User) === "function" ? _a : Object)
-], Post.prototype, "user", void 0);
-Post = __decorate([
-    graphql_1.ObjectType(),
-    graphql_1.Directive('@key(fields: "id")'),
-    __metadata("design:paramtypes", [typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object])
-], Post);
-exports.Post = Post;
-
-
-/***/ }),
-/* 23 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -679,9 +608,9 @@ exports.UsersService = void 0;
 const common_1 = __webpack_require__(4);
 const mongoose_1 = __webpack_require__(8);
 const mongodb_1 = __webpack_require__(12);
-const jwt_1 = __webpack_require__(24);
+const jwt_1 = __webpack_require__(23);
 const mongoose_2 = __webpack_require__(5);
-const bcrypt = __webpack_require__(25);
+const bcrypt = __webpack_require__(24);
 const constant_1 = __webpack_require__(9);
 let UsersService = class UsersService {
     constructor(userModel) {
@@ -756,19 +685,19 @@ exports.UsersService = UsersService;
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/jwt");;
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ ((module) => {
 
 module.exports = require("bcrypt");;
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -790,8 +719,8 @@ exports.ProductsResolver = void 0;
 const graphql_1 = __webpack_require__(6);
 const graphql_2 = __webpack_require__(6);
 const products_model_1 = __webpack_require__(15);
-const products_service_1 = __webpack_require__(20);
-const products_input_1 = __webpack_require__(27);
+const products_service_1 = __webpack_require__(21);
+const products_input_1 = __webpack_require__(26);
 const common_1 = __webpack_require__(4);
 const constant_1 = __webpack_require__(9);
 let ProductsResolver = class ProductsResolver {
@@ -842,7 +771,7 @@ exports.ProductsResolver = ProductsResolver;
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -859,7 +788,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductUpdateInput = exports.CreateProductInput = void 0;
 const graphql_1 = __webpack_require__(6);
-const global_enum_1 = __webpack_require__(28);
+const global_enum_1 = __webpack_require__(16);
 let CreateProductInput = class CreateProductInput {
 };
 __decorate([
@@ -891,21 +820,7 @@ exports.ProductUpdateInput = ProductUpdateInput;
 
 
 /***/ }),
-/* 28 */
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.PRODUCT_UNIT = void 0;
-var PRODUCT_UNIT;
-(function (PRODUCT_UNIT) {
-    PRODUCT_UNIT["USD"] = "Usd";
-    PRODUCT_UNIT["INR"] = "Inr";
-})(PRODUCT_UNIT = exports.PRODUCT_UNIT || (exports.PRODUCT_UNIT = {}));
-
-
-/***/ }),
-/* 29 */
+/* 27 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -926,8 +841,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersResolver = void 0;
 const graphql_1 = __webpack_require__(6);
 const user_model_1 = __webpack_require__(14);
-const users_service_1 = __webpack_require__(23);
-const user_input_1 = __webpack_require__(30);
+const users_service_1 = __webpack_require__(22);
+const user_input_1 = __webpack_require__(28);
 const common_1 = __webpack_require__(4);
 const constant_1 = __webpack_require__(9);
 let UsersResolver = class UsersResolver {
@@ -1012,7 +927,7 @@ exports.UsersResolver = UsersResolver;
 
 
 /***/ }),
-/* 30 */
+/* 28 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1075,7 +990,7 @@ exports.LoginInput = LoginInput;
 
 
 /***/ }),
-/* 31 */
+/* 29 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1090,7 +1005,7 @@ exports.productSchema = new mongoose.Schema({
 
 
 /***/ }),
-/* 32 */
+/* 30 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
