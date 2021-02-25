@@ -9,9 +9,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const common_1 = __webpack_require__(1);
 const core_1 = __webpack_require__(2);
 const products_module_1 = __webpack_require__(3);
+const config_1 = __webpack_require__(6);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(products_module_1.ProductsModule);
-    await app.listen(3003);
+    const config = app.get(config_1.ConfigService);
+    await app.listen(config.get("app.rentPort"));
     const url = await app.getUrl();
     common_1.Logger.log(`${url}/graphql`);
 }
@@ -46,25 +48,41 @@ exports.ProductsModule = void 0;
 const common_1 = __webpack_require__(1);
 const graphql_1 = __webpack_require__(4);
 const path_1 = __webpack_require__(5);
-const products_service_1 = __webpack_require__(6);
-const mongoose_1 = __webpack_require__(7);
-const products_schema_1 = __webpack_require__(10);
-const products_resolver_1 = __webpack_require__(11);
-const user_model_1 = __webpack_require__(21);
-const products_model_1 = __webpack_require__(12);
+const config_1 = __webpack_require__(6);
+const app_1 = __webpack_require__(7);
+const database_1 = __webpack_require__(8);
+const products_service_1 = __webpack_require__(9);
+const mongoose_1 = __webpack_require__(10);
+const products_schema_1 = __webpack_require__(13);
+const products_resolver_1 = __webpack_require__(14);
+const user_model_1 = __webpack_require__(24);
+const products_model_1 = __webpack_require__(15);
 let ProductsModule = class ProductsModule {
 };
 ProductsModule = __decorate([
     common_1.Module({
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: "PRODUCT", schema: products_schema_1.productSchema }]),
-            mongoose_1.MongooseModule.forRoot("mongodb://localhost/microdb"),
+            mongoose_1.MongooseModule.forRootAsync({
+                imports: [
+                    config_1.ConfigModule.forRoot({
+                        isGlobal: true,
+                    }),
+                ],
+                useFactory: async (configService) => ({
+                    uri: configService.get("database.url"),
+                }),
+                inject: [config_1.ConfigService],
+            }),
+            config_1.ConfigModule.forRoot({
+                load: [app_1.default, database_1.default],
+            }),
             graphql_1.GraphQLFederationModule.forRoot({
                 autoSchemaFile: path_1.join(process.cwd(), "apps/products/src/schema.gql"),
                 buildSchemaOptions: { orphanedTypes: [user_model_1.User, products_model_1.Product] },
             }),
         ],
-        providers: [products_service_1.ProductsService, products_resolver_1.ProductsResolver],
+        providers: [products_service_1.ProductsService, products_resolver_1.ProductsResolver, config_1.ConfigService],
     })
 ], ProductsModule);
 exports.ProductsModule = ProductsModule;
@@ -84,6 +102,41 @@ module.exports = require("path");;
 
 /***/ }),
 /* 6 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/config");;
+
+/***/ }),
+/* 7 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const config_1 = __webpack_require__(6);
+exports.default = config_1.registerAs("app", () => ({
+    url: process.env.DATABASE_URL,
+    gatewayPort: process.env.GATEWAY_PORT,
+    userPort: process.env.USER_PORT,
+    rentPort: process.env.RENT_PORT,
+    productPort: process.env.PRODUCT_PORT,
+}));
+
+
+/***/ }),
+/* 8 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const config_1 = __webpack_require__(6);
+exports.default = config_1.registerAs('database', () => ({
+    type: 'mongoose',
+    url: process.env.DATABASE_URL,
+}));
+
+
+/***/ }),
+/* 9 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -103,9 +156,9 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductsService = void 0;
 const common_1 = __webpack_require__(1);
-const mongoose_1 = __webpack_require__(7);
-const mongoose_2 = __webpack_require__(8);
-const mongodb_1 = __webpack_require__(9);
+const mongoose_1 = __webpack_require__(10);
+const mongoose_2 = __webpack_require__(11);
+const mongodb_1 = __webpack_require__(12);
 let ProductsService = class ProductsService {
     constructor(productModel) {
         this.productModel = productModel;
@@ -129,31 +182,31 @@ exports.ProductsService = ProductsService;
 
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/mongoose");;
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ ((module) => {
 
 module.exports = require("mongoose");;
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ ((module) => {
 
 module.exports = require("mongodb");;
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.productSchema = void 0;
-const mongoose = __webpack_require__(8);
+const mongoose = __webpack_require__(11);
 exports.productSchema = new mongoose.Schema({
     name: String,
     price: String,
@@ -162,7 +215,7 @@ exports.productSchema = new mongoose.Schema({
 
 
 /***/ }),
-/* 11 */
+/* 14 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -184,13 +237,13 @@ exports.ProductsResolver = void 0;
 const graphql_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 const graphql_2 = __webpack_require__(4);
-const products_model_1 = __webpack_require__(12);
-const products_service_1 = __webpack_require__(6);
-const products_input_1 = __webpack_require__(14);
-const constant_1 = __webpack_require__(15);
-const user_interface_1 = __webpack_require__(16);
-const current_user_decorator_1 = __webpack_require__(17);
-const gql_auth_guard_1 = __webpack_require__(18);
+const products_model_1 = __webpack_require__(15);
+const products_service_1 = __webpack_require__(9);
+const products_input_1 = __webpack_require__(17);
+const constant_1 = __webpack_require__(18);
+const user_interface_1 = __webpack_require__(19);
+const current_user_decorator_1 = __webpack_require__(20);
+const gql_auth_guard_1 = __webpack_require__(21);
 let ProductsResolver = class ProductsResolver {
     constructor(productService) {
         this.productService = productService;
@@ -253,7 +306,7 @@ exports.ProductsResolver = ProductsResolver;
 
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -270,7 +323,7 @@ var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Product = void 0;
 const graphql_1 = __webpack_require__(4);
-const global_enum_1 = __webpack_require__(13);
+const global_enum_1 = __webpack_require__(16);
 let Product = class Product {
     constructor(product) {
         Object.assign(product);
@@ -303,7 +356,7 @@ exports.Product = Product;
 
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -321,7 +374,7 @@ graphql_1.registerEnumType(PRODUCT_UNIT, {
 
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -338,7 +391,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductUpdateInput = exports.CreateProductInput = void 0;
 const graphql_1 = __webpack_require__(4);
-const global_enum_1 = __webpack_require__(13);
+const global_enum_1 = __webpack_require__(16);
 let CreateProductInput = class CreateProductInput {
 };
 __decorate([
@@ -370,7 +423,7 @@ exports.ProductUpdateInput = ProductUpdateInput;
 
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -391,7 +444,7 @@ exports.jwtConstants = {
 
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -399,7 +452,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -416,7 +469,7 @@ exports.CurrentUser = common_1.createParamDecorator((data, context) => {
 
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -433,11 +486,11 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GqlAuthGuard = void 0;
 const common_1 = __webpack_require__(1);
-const passport_1 = __webpack_require__(19);
+const passport_1 = __webpack_require__(22);
 const graphql_1 = __webpack_require__(4);
 const core_1 = __webpack_require__(2);
-const jwt_1 = __webpack_require__(20);
-const constant_1 = __webpack_require__(15);
+const jwt_1 = __webpack_require__(23);
+const constant_1 = __webpack_require__(18);
 let GqlAuthGuard = class GqlAuthGuard extends passport_1.AuthGuard("jwt") {
     constructor(reflector) {
         super();
@@ -477,19 +530,19 @@ exports.GqlAuthGuard = GqlAuthGuard;
 
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/passport");;
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/jwt");;
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 

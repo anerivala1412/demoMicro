@@ -3,6 +3,9 @@ import { join } from "path";
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { GraphQLFederationModule } from "@nestjs/graphql";
+import { ConfigService, ConfigModule } from "@nestjs/config";
+import appConfiguration from "../../config/app";
+import dbConfiguration from "../../config/database";
 
 import { RentsService } from "./rents.service";
 import { rentSchema } from "./rents.schema";
@@ -23,7 +26,20 @@ import { userSchema } from "../../users/src/user.schema";
       { name: "PRODUCT", schema: productSchema },
       { name: "USER", schema: userSchema },
     ]),
-    MongooseModule.forRoot("mongodb://localhost/microdb"),
+    MongooseModule.forRootAsync({
+      imports: [
+        ConfigModule.forRoot({
+          isGlobal: true,
+        }),
+      ],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get("database.url"),
+      }),
+      inject: [ConfigService],
+    }),
+    ConfigModule.forRoot({
+      load: [appConfiguration, dbConfiguration],
+    }),
     GraphQLFederationModule.forRoot({
       autoSchemaFile: join(process.cwd(), "apps/rents/src/schema.gql"),
       buildSchemaOptions: { orphanedTypes: [User, Product] },

@@ -1,10 +1,12 @@
-import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { UsersModule } from './users.module';
+import { Logger } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import { UsersModule } from "./users.module";
+import { ConfigService } from "@nestjs/config";
 
 async function bootstrap() {
   const app = await NestFactory.create(UsersModule);
-  await app.listen(3001);
+  const config = app.get(ConfigService);
+  await app.listen(config.get("app.userPort"));
   const url = await app.getUrl();
   Logger.log(`${url}/graphql`);
 }

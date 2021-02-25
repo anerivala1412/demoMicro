@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { GraphQLGatewayModule } from "@nestjs/graphql";
 import { MongooseModule } from "@nestjs/mongoose";
 import { APP_GUARD } from "@nestjs/core";
+import { ConfigModule, ConfigService } from "nestjs-config";
 
 import { userSchema } from "../../users/src/user.schema";
 import { productSchema } from "../../products/src/products.schema";
@@ -13,7 +14,13 @@ import { RolesGuard } from "../../auth/role.guard";
       { name: "USER", schema: userSchema },
       { name: "PRODUCT", schema: productSchema },
     ]),
-    MongooseModule.forRoot("mongodb://localhost/microdb"),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => ({
+        uri: config.get("database.url"),
+      }),
+      inject: [ConfigService],
+    }),
     GraphQLGatewayModule.forRoot({
       server: { cors: true },
       gateway: {
