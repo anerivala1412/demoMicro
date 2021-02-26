@@ -5,6 +5,14 @@
   "author": "melkir",
   "private": true,
   "license": "UNLICENSED",
+  "husky": {
+    "hooks": {
+      "pre-commit": "prettier --write . && git add -A ."
+    }
+  },
+  "lint-staged": {
+    "*": "prettier --write"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -30,17 +38,20 @@
     "@nestjs/mongoose": "^7.2.3",
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.4.4",
+    "@nestjs/swagger": "^4.7.15",
     "apollo-server-express": "^2.18.2",
     "bcrypt": "^5.0.0",
     "graphql": "^15.3.0",
     "graphql-tools": "^6.2.4",
+    "husky": "^5.1.1",
     "mongoose": "^5.11.18",
     "nestjs-config": "^1.4.7",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.3"
+    "rxjs": "^6.6.3",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.5.1",
@@ -53,7 +64,7 @@
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "4.4.1",
     "@typescript-eslint/parser": "4.4.1",
-    "eslint": "7.11.0",
+    "eslint": "^7.20.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-import": "^2.22.1",
     "jest": "26.5.3",
@@ -82,4 +93,5 @@
       "<rootDir>/apps/"
     ]
   }
+  
 }
