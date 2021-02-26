@@ -5,12 +5,15 @@ import { Model } from "mongoose";
 import { IRent } from "./rents.interface";
 import { staticError } from "../../constant";
 import { RentInput } from "./rents.input";
+import { IProduct } from "../../products/src/products.interface";
 
 @Injectable()
 export class RentsService {
   constructor(
     @InjectModel("RENT")
-    public rentModel: Model<IRent>
+    public rentModel: Model<IRent>,
+    @InjectModel("PRODUCT")
+    public productModel: Model<IProduct>
   ) {}
 
   async findAll(query) {
@@ -31,6 +34,11 @@ export class RentsService {
     if (existItem) {
       throw new Error(staticError.alreayRent);
     }
-    return await this.rentModel.create(input);
+    const rentItem = await this.rentModel.create(input);
+    await this.productModel.findByIdAndUpdate(
+      { _id: rentItem.productId },
+      { isRented: true }
+    );
+    return rentItem;
   }
 }

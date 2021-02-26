@@ -54,7 +54,8 @@ const app_1 = __webpack_require__(8);
 const database_1 = __webpack_require__(9);
 const users_resolver_1 = __webpack_require__(10);
 const users_service_1 = __webpack_require__(12);
-const user_schema_1 = __webpack_require__(19);
+const user_schema_1 = __webpack_require__(20);
+const jwt_service_1 = __webpack_require__(17);
 let UsersModule = class UsersModule {
 };
 UsersModule = __decorate([
@@ -79,7 +80,7 @@ UsersModule = __decorate([
                 autoSchemaFile: path_1.join(process.cwd(), "apps/users/src/schema.gql"),
             }),
         ],
-        providers: [users_resolver_1.UsersResolver, users_service_1.UsersService],
+        providers: [users_resolver_1.UsersResolver, users_service_1.UsersService, jwt_service_1.JwtCommonService],
     })
 ], UsersModule);
 exports.UsersModule = UsersModule;
@@ -118,7 +119,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const config_1 = __webpack_require__(7);
 exports.default = config_1.registerAs("app", () => ({
     url: process.env.DATABASE_URL,
+    gatewayPort: process.env.GATEWAY_PORT,
     userPort: process.env.USER_PORT,
+    rentPort: process.env.RENT_PORT,
+    productPort: process.env.PRODUCT_PORT,
 }));
 
 
@@ -158,9 +162,9 @@ exports.UsersResolver = void 0;
 const graphql_1 = __webpack_require__(5);
 const user_model_1 = __webpack_require__(11);
 const users_service_1 = __webpack_require__(12);
-const user_input_1 = __webpack_require__(18);
+const user_input_1 = __webpack_require__(19);
 const common_1 = __webpack_require__(1);
-const constant_1 = __webpack_require__(17);
+const constant_1 = __webpack_require__(16);
 let UsersResolver = class UsersResolver {
     constructor(usersService) {
         this.usersService = usersService;
@@ -172,8 +176,7 @@ let UsersResolver = class UsersResolver {
         return await this.usersService.findOneById(id);
     }
     async create(input) {
-        let payload = Object.assign({}, input);
-        payload.email = payload.email.toLowerCase();
+        let payload = Object.assign(Object.assign({}, input), { email: input.email.toLowerCase() });
         const existUser = await this.usersService.findOne({
             email: payload.email,
         });
@@ -316,29 +319,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersService = void 0;
 const common_1 = __webpack_require__(1);
 const mongoose_1 = __webpack_require__(13);
 const mongodb_1 = __webpack_require__(14);
-const jwt_1 = __webpack_require__(15);
 const mongoose_2 = __webpack_require__(6);
-const bcrypt = __webpack_require__(16);
-const constant_1 = __webpack_require__(17);
+const bcrypt = __webpack_require__(15);
+const constant_1 = __webpack_require__(16);
+const jwt_service_1 = __webpack_require__(17);
 let UsersService = class UsersService {
-    constructor(userModel) {
+    constructor(userModel, jwtService) {
         this.userModel = userModel;
+        this.jwtService = jwtService;
         this.posts = [{ id: 1, name: "melkir", email: "test@gmail.com" }];
     }
     async findOneById(postId) {
         return await this.posts.find(({ id }) => id === postId);
     }
     async findAll() {
-        return await this.userModel.aggregate();
+        return await this.userModel.find();
     }
     async getMany(query) {
-        return await this.userModel.aggregate();
+        return await this.userModel.find();
     }
     async findOne(query) {
         console.log({ query });
@@ -368,10 +372,8 @@ let UsersService = class UsersService {
         return await this.userModel.findOneAndDelete({ _id: new mongodb_1.ObjectId(id) });
     }
     async login(loginInfo) {
-        const jwt = new jwt_1.JwtService({
-            secret: constant_1.jwtConstants.secret,
-            signOptions: { expiresIn: constant_1.jwtConstants.expiresIn },
-        });
+        const jwtInfo = await this.jwtService.getJwtInfo();
+        console.log({ jwtInfo });
         const existUser = await this.userModel.findOne({
             email: loginInfo.email,
         });
@@ -384,7 +386,7 @@ let UsersService = class UsersService {
                 userId: new mongodb_1.ObjectId(existUser._id),
             };
             console.log({ payload });
-            const token = jwt.sign(payload);
+            const token = jwtInfo.sign(payload);
             return { token, userInfo: existUser };
         }
         throw new Error(constant_1.staticError.passwordNotMatched);
@@ -393,7 +395,7 @@ let UsersService = class UsersService {
 UsersService = __decorate([
     common_1.Injectable(),
     __param(0, mongoose_2.InjectModel("USER")),
-    __metadata("design:paramtypes", [typeof (_a = typeof mongoose_1.Model !== "undefined" && mongoose_1.Model) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof mongoose_1.Model !== "undefined" && mongoose_1.Model) === "function" ? _a : Object, typeof (_b = typeof jwt_service_1.JwtCommonService !== "undefined" && jwt_service_1.JwtCommonService) === "function" ? _b : Object])
 ], UsersService);
 exports.UsersService = UsersService;
 
@@ -414,16 +416,10 @@ module.exports = require("mongodb");;
 /* 15 */
 /***/ ((module) => {
 
-module.exports = require("@nestjs/jwt");;
-
-/***/ }),
-/* 16 */
-/***/ ((module) => {
-
 module.exports = require("bcrypt");;
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -444,7 +440,49 @@ exports.jwtConstants = {
 
 
 /***/ }),
+/* 17 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.JwtCommonService = void 0;
+const common_1 = __webpack_require__(1);
+const jwt_1 = __webpack_require__(18);
+const constant_1 = __webpack_require__(16);
+let JwtCommonService = class JwtCommonService {
+    constructor() { }
+    async getJwtInfo() {
+        const jwt = new jwt_1.JwtService({
+            secret: constant_1.jwtConstants.secret,
+            signOptions: { expiresIn: constant_1.jwtConstants.expiresIn },
+        });
+        return await jwt;
+    }
+};
+JwtCommonService = __decorate([
+    common_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], JwtCommonService);
+exports.JwtCommonService = JwtCommonService;
+
+
+/***/ }),
 /* 18 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/jwt");;
+
+/***/ }),
+/* 19 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -507,7 +545,7 @@ exports.LoginInput = LoginInput;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -516,7 +554,10 @@ exports.userSchema = void 0;
 const mongoose = __webpack_require__(13);
 exports.userSchema = new mongoose.Schema({
     name: String,
-    email: String,
+    email: {
+        type: mongoose.Schema.Types.String,
+        unique: true,
+    },
     password: String,
 }, { timestamps: true });
 

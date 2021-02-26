@@ -9,11 +9,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const common_1 = __webpack_require__(1);
 const core_1 = __webpack_require__(2);
 const products_module_1 = __webpack_require__(3);
-const config_1 = __webpack_require__(6);
+const config_1 = __webpack_require__(7);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(products_module_1.ProductsModule);
     const config = app.get(config_1.ConfigService);
-    await app.listen(config.get("app.rentPort"));
+    await app.listen(config.get("app.productPort"));
     const url = await app.getUrl();
     common_1.Logger.log(`${url}/graphql`);
 }
@@ -45,18 +45,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductsModule = void 0;
+const path_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const graphql_1 = __webpack_require__(4);
-const path_1 = __webpack_require__(5);
-const config_1 = __webpack_require__(6);
-const app_1 = __webpack_require__(7);
-const database_1 = __webpack_require__(8);
-const products_service_1 = __webpack_require__(9);
-const mongoose_1 = __webpack_require__(10);
-const products_schema_1 = __webpack_require__(13);
-const products_resolver_1 = __webpack_require__(14);
-const user_model_1 = __webpack_require__(24);
-const products_model_1 = __webpack_require__(15);
+const graphql_1 = __webpack_require__(5);
+const mongoose_1 = __webpack_require__(6);
+const config_1 = __webpack_require__(7);
+const app_1 = __webpack_require__(8);
+const database_1 = __webpack_require__(9);
+const products_schema_1 = __webpack_require__(10);
+const products_resolver_1 = __webpack_require__(12);
+const products_service_1 = __webpack_require__(15);
+const jwt_service_1 = __webpack_require__(19);
 let ProductsModule = class ProductsModule {
 };
 ProductsModule = __decorate([
@@ -79,10 +78,9 @@ ProductsModule = __decorate([
             }),
             graphql_1.GraphQLFederationModule.forRoot({
                 autoSchemaFile: path_1.join(process.cwd(), "apps/products/src/schema.gql"),
-                buildSchemaOptions: { orphanedTypes: [user_model_1.User, products_model_1.Product] },
             }),
         ],
-        providers: [products_service_1.ProductsService, products_resolver_1.ProductsResolver, config_1.ConfigService],
+        providers: [products_resolver_1.ProductsResolver, products_service_1.ProductsService, jwt_service_1.JwtCommonService],
     })
 ], ProductsModule);
 exports.ProductsModule = ProductsModule;
@@ -92,27 +90,33 @@ exports.ProductsModule = ProductsModule;
 /* 4 */
 /***/ ((module) => {
 
-module.exports = require("@nestjs/graphql");;
+module.exports = require("path");;
 
 /***/ }),
 /* 5 */
 /***/ ((module) => {
 
-module.exports = require("path");;
+module.exports = require("@nestjs/graphql");;
 
 /***/ }),
 /* 6 */
 /***/ ((module) => {
 
-module.exports = require("@nestjs/config");;
+module.exports = require("@nestjs/mongoose");;
 
 /***/ }),
 /* 7 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/config");;
+
+/***/ }),
+/* 8 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const config_1 = __webpack_require__(6);
+const config_1 = __webpack_require__(7);
 exports.default = config_1.registerAs("app", () => ({
     url: process.env.DATABASE_URL,
     gatewayPort: process.env.GATEWAY_PORT,
@@ -123,12 +127,12 @@ exports.default = config_1.registerAs("app", () => ({
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const config_1 = __webpack_require__(6);
+const config_1 = __webpack_require__(7);
 exports.default = config_1.registerAs('database', () => ({
     type: 'mongoose',
     url: process.env.DATABASE_URL,
@@ -136,71 +140,7 @@ exports.default = config_1.registerAs('database', () => ({
 
 
 /***/ }),
-/* 9 */
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ProductsService = void 0;
-const common_1 = __webpack_require__(1);
-const mongoose_1 = __webpack_require__(10);
-const mongoose_2 = __webpack_require__(11);
-const mongodb_1 = __webpack_require__(12);
-let ProductsService = class ProductsService {
-    constructor(productModel) {
-        this.productModel = productModel;
-    }
-    async findAll(query) {
-        return await this.productModel.find(Object.assign({}, query));
-    }
-    async create(input) {
-        return await this.productModel.create(input);
-    }
-    async getOne(id) {
-        return await this.productModel.findOne({ _id: new mongodb_1.ObjectId(id) });
-    }
-};
-ProductsService = __decorate([
-    common_1.Injectable(),
-    __param(0, mongoose_1.InjectModel("PRODUCT")),
-    __metadata("design:paramtypes", [typeof (_a = typeof mongoose_2.Model !== "undefined" && mongoose_2.Model) === "function" ? _a : Object])
-], ProductsService);
-exports.ProductsService = ProductsService;
-
-
-/***/ }),
 /* 10 */
-/***/ ((module) => {
-
-module.exports = require("@nestjs/mongoose");;
-
-/***/ }),
-/* 11 */
-/***/ ((module) => {
-
-module.exports = require("mongoose");;
-
-/***/ }),
-/* 12 */
-/***/ ((module) => {
-
-module.exports = require("mongodb");;
-
-/***/ }),
-/* 13 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -215,7 +155,13 @@ exports.productSchema = new mongoose.Schema({
 
 
 /***/ }),
-/* 14 */
+/* 11 */
+/***/ ((module) => {
+
+module.exports = require("mongoose");;
+
+/***/ }),
+/* 12 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -231,31 +177,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d;
+var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductsResolver = void 0;
-const graphql_1 = __webpack_require__(4);
+const graphql_1 = __webpack_require__(5);
 const common_1 = __webpack_require__(1);
-const graphql_2 = __webpack_require__(4);
-const products_model_1 = __webpack_require__(15);
-const products_service_1 = __webpack_require__(9);
+const graphql_2 = __webpack_require__(5);
+const products_model_1 = __webpack_require__(13);
+const products_service_1 = __webpack_require__(15);
 const products_input_1 = __webpack_require__(17);
 const constant_1 = __webpack_require__(18);
-const user_interface_1 = __webpack_require__(19);
-const current_user_decorator_1 = __webpack_require__(20);
-const gql_auth_guard_1 = __webpack_require__(21);
 let ProductsResolver = class ProductsResolver {
     constructor(productService) {
         this.productService = productService;
     }
     async getProducts() {
         return await this.productService.findAll({});
-    }
-    async getUserProducts(user) {
-        console.log({ user });
-        return await this.productService.findAll({
-            userId: user._id,
-        });
     }
     getProduct(product) {
         return { __typename: "Product", id: product.id };
@@ -277,36 +214,28 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductsResolver.prototype, "getProducts", null);
 __decorate([
-    common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),
-    graphql_1.Query((returns) => [products_model_1.Product], { name: "getUserProducts" }),
-    __param(0, current_user_decorator_1.CurrentUser()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_a = typeof user_interface_1.IUser !== "undefined" && user_interface_1.IUser) === "function" ? _a : Object]),
-    __metadata("design:returntype", Promise)
-], ProductsResolver.prototype, "getUserProducts", null);
-__decorate([
     graphql_1.ResolveField((of) => products_model_1.Product, { name: "getProduct" }),
     __param(0, graphql_1.Parent()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof products_model_1.Product !== "undefined" && products_model_1.Product) === "function" ? _b : Object]),
+    __metadata("design:paramtypes", [typeof (_a = typeof products_model_1.Product !== "undefined" && products_model_1.Product) === "function" ? _a : Object]),
     __metadata("design:returntype", void 0)
 ], ProductsResolver.prototype, "getProduct", null);
 __decorate([
     graphql_1.Mutation(() => products_model_1.Product, { name: "createProduct" }),
     __param(0, graphql_1.Args("input")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_c = typeof products_input_1.CreateProductInput !== "undefined" && products_input_1.CreateProductInput) === "function" ? _c : Object]),
+    __metadata("design:paramtypes", [typeof (_b = typeof products_input_1.CreateProductInput !== "undefined" && products_input_1.CreateProductInput) === "function" ? _b : Object]),
     __metadata("design:returntype", Promise)
 ], ProductsResolver.prototype, "create", null);
 ProductsResolver = __decorate([
     graphql_2.Resolver((of) => products_model_1.Product),
-    __metadata("design:paramtypes", [typeof (_d = typeof products_service_1.ProductsService !== "undefined" && products_service_1.ProductsService) === "function" ? _d : Object])
+    __metadata("design:paramtypes", [typeof (_c = typeof products_service_1.ProductsService !== "undefined" && products_service_1.ProductsService) === "function" ? _c : Object])
 ], ProductsResolver);
 exports.ProductsResolver = ProductsResolver;
 
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -322,8 +251,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Product = void 0;
-const graphql_1 = __webpack_require__(4);
-const global_enum_1 = __webpack_require__(16);
+const graphql_1 = __webpack_require__(5);
+const global_enum_1 = __webpack_require__(14);
 let Product = class Product {
     constructor(product) {
         Object.assign(product);
@@ -356,13 +285,13 @@ exports.Product = Product;
 
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PRODUCT_UNIT = void 0;
-const graphql_1 = __webpack_require__(4);
+const graphql_1 = __webpack_require__(5);
 var PRODUCT_UNIT;
 (function (PRODUCT_UNIT) {
     PRODUCT_UNIT["USD"] = "Usd";
@@ -372,6 +301,59 @@ graphql_1.registerEnumType(PRODUCT_UNIT, {
     name: 'PRODUCT_UNIT',
 });
 
+
+/***/ }),
+/* 15 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ProductsService = void 0;
+const common_1 = __webpack_require__(1);
+const mongoose_1 = __webpack_require__(6);
+const mongoose_2 = __webpack_require__(11);
+const mongodb_1 = __webpack_require__(16);
+let ProductsService = class ProductsService {
+    constructor(productModel) {
+        this.productModel = productModel;
+    }
+    async findAll(query) {
+        console.log();
+        return await this.productModel.find(Object.assign({}, query));
+    }
+    async create(input) {
+        return await this.productModel.create(input);
+    }
+    async getOne(id) {
+        return await this.productModel.findOne({ _id: new mongodb_1.ObjectId(id) });
+    }
+};
+ProductsService = __decorate([
+    common_1.Injectable(),
+    __param(0, mongoose_1.InjectModel("PRODUCT")),
+    __metadata("design:paramtypes", [typeof (_a = typeof mongoose_2.Model !== "undefined" && mongoose_2.Model) === "function" ? _a : Object])
+], ProductsService);
+exports.ProductsService = ProductsService;
+
+
+/***/ }),
+/* 16 */
+/***/ ((module) => {
+
+module.exports = require("mongodb");;
 
 /***/ }),
 /* 17 */
@@ -390,8 +372,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductUpdateInput = exports.CreateProductInput = void 0;
-const graphql_1 = __webpack_require__(4);
-const global_enum_1 = __webpack_require__(16);
+const graphql_1 = __webpack_require__(5);
+const global_enum_1 = __webpack_require__(14);
 let CreateProductInput = class CreateProductInput {
 };
 __decorate([
@@ -445,31 +427,6 @@ exports.jwtConstants = {
 
 /***/ }),
 /* 19 */
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-
-
-/***/ }),
-/* 20 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CurrentUser = void 0;
-const common_1 = __webpack_require__(1);
-const graphql_1 = __webpack_require__(4);
-exports.CurrentUser = common_1.createParamDecorator((data, context) => {
-    var _a;
-    const ctx = graphql_1.GqlExecutionContext.create(context);
-    console.log({ ctx });
-    return (_a = ctx.getContext().req) === null || _a === void 0 ? void 0 : _a.user;
-});
-
-
-/***/ }),
-/* 21 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -482,121 +439,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.GqlAuthGuard = void 0;
+exports.JwtCommonService = void 0;
 const common_1 = __webpack_require__(1);
-const passport_1 = __webpack_require__(22);
-const graphql_1 = __webpack_require__(4);
-const core_1 = __webpack_require__(2);
-const jwt_1 = __webpack_require__(23);
+const jwt_1 = __webpack_require__(20);
 const constant_1 = __webpack_require__(18);
-let GqlAuthGuard = class GqlAuthGuard extends passport_1.AuthGuard("jwt") {
-    constructor(reflector) {
-        super();
-        this.reflector = reflector;
-    }
-    getRequest(context) {
-        const ctx = graphql_1.GqlExecutionContext.create(context);
-        const res = ctx.getContext().req;
-        return res;
-    }
-    async canActivate(context) {
-        const ctx = graphql_1.GqlExecutionContext.create(context);
-        const res = ctx.getContext().req;
-        const req = this.getRequest(context);
-        const authHeader = req.headers.authorization;
-        if (!authHeader) {
-            throw new common_1.BadRequestException("Authorization header not found.");
-        }
-        const [type, token] = authHeader.split(" ");
-        if (type !== "Bearer") {
-            throw new common_1.BadRequestException(`Authentication type \'Bearer\' required. Found \'${type}\'`);
-        }
+let JwtCommonService = class JwtCommonService {
+    constructor() { }
+    async getJwtInfo() {
         const jwt = new jwt_1.JwtService({
             secret: constant_1.jwtConstants.secret,
             signOptions: { expiresIn: constant_1.jwtConstants.expiresIn },
         });
-        const userData = jwt.decode(token);
-        Object.assign(req, { user: { _id: userData.userId } });
-        return true;
+        return await jwt;
     }
 };
-GqlAuthGuard = __decorate([
+JwtCommonService = __decorate([
     common_1.Injectable(),
-    __metadata("design:paramtypes", [typeof (_a = typeof core_1.Reflector !== "undefined" && core_1.Reflector) === "function" ? _a : Object])
-], GqlAuthGuard);
-exports.GqlAuthGuard = GqlAuthGuard;
+    __metadata("design:paramtypes", [])
+], JwtCommonService);
+exports.JwtCommonService = JwtCommonService;
 
 
 /***/ }),
-/* 22 */
-/***/ ((module) => {
-
-module.exports = require("@nestjs/passport");;
-
-/***/ }),
-/* 23 */
+/* 20 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/jwt");;
-
-/***/ }),
-/* 24 */
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.LoginResponse = exports.User = void 0;
-const graphql_1 = __webpack_require__(4);
-let User = class User {
-    constructor(user) {
-        Object.assign(user);
-    }
-};
-__decorate([
-    graphql_1.Field((type) => graphql_1.ID),
-    __metadata("design:type", Number)
-], User.prototype, "id", void 0);
-__decorate([
-    graphql_1.Field(),
-    __metadata("design:type", String)
-], User.prototype, "name", void 0);
-__decorate([
-    graphql_1.Field(),
-    __metadata("design:type", String)
-], User.prototype, "email", void 0);
-User = __decorate([
-    graphql_1.ObjectType(),
-    graphql_1.Directive('@key(fields: "id")'),
-    __metadata("design:paramtypes", [typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object])
-], User);
-exports.User = User;
-let LoginResponse = class LoginResponse {
-};
-__decorate([
-    graphql_1.Field(() => String, { nullable: false }),
-    __metadata("design:type", String)
-], LoginResponse.prototype, "token", void 0);
-__decorate([
-    graphql_1.Field(() => User, { nullable: true }),
-    __metadata("design:type", User)
-], LoginResponse.prototype, "userInfo", void 0);
-LoginResponse = __decorate([
-    graphql_1.ObjectType({ isAbstract: true })
-], LoginResponse);
-exports.LoginResponse = LoginResponse;
-
 
 /***/ })
 /******/ 	]);

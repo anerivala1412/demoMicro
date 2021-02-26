@@ -1,18 +1,15 @@
+import { join } from "path";
+
 import { Module } from "@nestjs/common";
 import { GraphQLFederationModule } from "@nestjs/graphql";
-import { join } from "path";
+import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigService, ConfigModule } from "@nestjs/config";
 import appConfiguration from "../../config/app";
 import dbConfiguration from "../../config/database";
-
-import * as path from "path";
-
-import { ProductsService } from "./products.service";
-import { MongooseModule } from "@nestjs/mongoose";
 import { productSchema } from "./products.schema";
 import { ProductsResolver } from "./products.resolver";
-import { User } from "../../users/src/user.model";
-import { Product } from "./products.model";
+import { ProductsService } from "./products.service";
+import { JwtCommonService } from "../../auth/jwt.service";
 
 @Module({
   imports: [
@@ -33,9 +30,8 @@ import { Product } from "./products.model";
     }),
     GraphQLFederationModule.forRoot({
       autoSchemaFile: join(process.cwd(), "apps/products/src/schema.gql"),
-      buildSchemaOptions: { orphanedTypes: [User, Product] },
     }),
   ],
-  providers: [ProductsService, ProductsResolver, ConfigService],
+  providers: [ProductsResolver, ProductsService, JwtCommonService],
 })
 export class ProductsModule {}

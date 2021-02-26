@@ -5,4 +5,6 @@ export interface IRent extends Document {
   productId: string;
   createdAt: string;
   updatedAt: string;
+  startDate: string;
+  endDate: string;
 }

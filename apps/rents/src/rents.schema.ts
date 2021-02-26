@@ -9,6 +9,12 @@ export const rentSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "PRODUCT",
     },
+    startDate: {
+      type: mongoose.Schema.Types.String,
+    },
+    endDate: {
+      type: mongoose.Schema.Types.String,
+    },
   },
   { timestamps: true }
 );

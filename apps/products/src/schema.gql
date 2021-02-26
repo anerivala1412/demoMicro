@@ -25,15 +25,8 @@ enum PRODUCT_UNIT {
   INR
 }
 
-type User {
-  id: ID!
-  name: String!
-  email: String!
-}
-
 type Query {
   getProducts: [Product!]!
-  getUserProducts: [Product!]!
 }
 
 type Mutation {

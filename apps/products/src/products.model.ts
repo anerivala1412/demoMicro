@@ -15,7 +15,10 @@ export class Product {
   @Field()
   price: string;
 
-  @Field(() => PRODUCT_UNIT,{nullable:true})
+  @Field({ defaultValue: false })
+  isRented: boolean;
+
+  @Field(() => PRODUCT_UNIT, { nullable: true })
   unit: PRODUCT_UNIT;
 
   constructor(product: Partial<Product>) {

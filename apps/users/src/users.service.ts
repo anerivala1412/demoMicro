@@ -9,6 +9,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import * as bcrypt from "bcrypt";
 import { LoginInput } from "./user.input";
 import { jwtConstants, staticError } from "../../constant";
+import { JwtCommonService } from "../../auth/jwt.service";
 
 @Injectable()
 export class UsersService {
@@ -16,22 +17,19 @@ export class UsersService {
 
   constructor(
     @InjectModel("USER")
-    private userModel: Model<IUser>
+    private userModel: Model<IUser>,
+    private readonly jwtService: JwtCommonService
   ) {}
 
   async findOneById(postId: number) {
     return await this.posts.find(({ id }) => id === postId);
   }
-  // async create(user) {
-  //   await this.userModel.create(user);
-  // }
-
   /**
    * fetch all users
    * @param query
    */
   async findAll() {
-    return await this.userModel.aggregate();
+    return await this.userModel.find();
   }
 
   /**
@@ -39,7 +37,7 @@ export class UsersService {
    * @param query
    */
   async getMany(query) {
-    return await this.userModel.aggregate();
+    return await this.userModel.find();
   }
 
   /**
@@ -111,10 +109,8 @@ export class UsersService {
    * @param id
    */
   async login(loginInfo: LoginInput) {
-    const jwt = new JwtService({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: jwtConstants.expiresIn },
-    });
+    const jwtInfo = await this.jwtService.getJwtInfo();
+
     const existUser: IUser = await this.userModel.findOne({
       email: loginInfo.email,
     });
@@ -129,7 +125,7 @@ export class UsersService {
         userId: new ObjectId(existUser._id),
       };
       console.log({ payload });
-      const token = jwt.sign(payload);
+      const token = jwtInfo.sign(payload);
       return { token, userInfo: existUser };
     }
     throw new Error(staticError.passwordNotMatched);

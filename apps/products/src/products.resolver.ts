@@ -1,15 +1,11 @@
 import { Args, Parent, Query, ResolveField, Mutation } from "@nestjs/graphql";
-import { BadRequestException, UseGuards } from "@nestjs/common";
+import { BadRequestException } from "@nestjs/common";
 import { Resolver } from "@nestjs/graphql";
-import { ObjectId } from "mongodb";
 
 import { Product } from "./products.model";
 import { ProductsService } from "./products.service";
 import { CreateProductInput } from "./products.input";
 import { staticError } from "../../constant";
-import { IUser } from "../../users/src/user.interface";
-import { CurrentUser } from "../../auth/current-user.decorator";
-import { GqlAuthGuard } from "../../auth/gql.auth.guard";
 
 @Resolver((of) => Product)
 export class ProductsResolver {

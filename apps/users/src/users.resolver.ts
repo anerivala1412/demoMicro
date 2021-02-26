@@ -29,8 +29,7 @@ export class UsersResolver {
 
   @Mutation(() => User, { name: "createUser" })
   async create(@Args("input") input: CreateUserInput) {
-    let payload = { ...input };
-    payload.email = payload.email.toLowerCase();
+    let payload = { ...input, email: input.email.toLowerCase() };
     const existUser = await this.usersService.findOne({
       email: payload.email,
     });

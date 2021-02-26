@@ -10,6 +10,7 @@ import dbConfiguration from "../../config/database";
 import { UsersResolver } from "./users.resolver";
 import { UsersService } from "./users.service";
 import { userSchema } from "./user.schema";
+import { JwtCommonService } from "../../auth/jwt.service";
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: "USER", schema: userSchema }]),
@@ -31,6 +32,6 @@ import { userSchema } from "./user.schema";
       autoSchemaFile: join(process.cwd(), "apps/users/src/schema.gql"),
     }),
   ],
-  providers: [UsersResolver, UsersService],
+  providers: [UsersResolver, UsersService, JwtCommonService],
 })
 export class UsersModule {}

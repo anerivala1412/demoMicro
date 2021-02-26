@@ -6,12 +6,14 @@ import {
 import { AuthGuard } from "@nestjs/passport";
 import { GqlExecutionContext } from "@nestjs/graphql";
 import { Reflector } from "@nestjs/core";
-import { JwtService } from "@nestjs/jwt";
-import { jwtConstants } from "../constant";
+import { JwtCommonService } from "./jwt.service";
 
 @Injectable()
 export class GqlAuthGuard extends AuthGuard("jwt") {
-  constructor(private reflector: Reflector) {
+  constructor(
+    private reflector: Reflector,
+    private readonly jwtService: JwtCommonService
+  ) {
     super();
   }
 
@@ -38,11 +40,7 @@ export class GqlAuthGuard extends AuthGuard("jwt") {
       );
     }
 
-    const jwt = new JwtService({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: jwtConstants.expiresIn },
-    });
-
+    const jwt = await this.jwtService.getJwtInfo();
     const userData: any = jwt.decode(token);
     Object.assign(req, { user: { _id: userData.userId } });
     return true;

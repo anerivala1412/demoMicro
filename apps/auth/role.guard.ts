@@ -14,19 +14,18 @@ import { JwtService } from "@nestjs/jwt";
 import { ObjectId } from "mongodb";
 import { jwtConstants } from "../constant";
 import { IUser } from "../users/src/user.interface";
+import { JwtCommonService } from "./jwt.service";
 
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
+    private jwtService: JwtCommonService,
     @InjectModel("USER") private readonly userModel: Model<IUser>
   ) {}
 
   async canActivate(context: ExecutionContext) {
-    const jwt = new JwtService({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: jwtConstants.expiresIn },
-    });
+    const jwt = await this.jwtService.getJwtInfo();
 
     const ctx = GqlExecutionContext.create(context);
 

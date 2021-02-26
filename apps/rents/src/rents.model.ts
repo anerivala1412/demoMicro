@@ -23,6 +23,12 @@ export class Rent {
   @Field(() => DATETIME, { nullable: true })
   updatedAt: any;
 
+  @Field(() => DATETIME, { nullable: true })
+  startDate: any;
+
+  @Field(() => DATETIME, { nullable: true })
+  endDate: any;
+
   constructor(rent: Partial<Rent>) {
     Object.assign(rent);
   }
