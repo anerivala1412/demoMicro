@@ -24,7 +24,7 @@ export class ProductsResolver {
   @Mutation(() => Product, { name: "createProduct" })
   async create(@Args("input") input: CreateProductInput) {
     try {
-      let payload = { ...input };
+      const payload = { ...input };
       return await this.productService.create(payload);
     } catch (error) {
       throw new BadRequestException(

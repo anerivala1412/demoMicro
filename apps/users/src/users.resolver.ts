@@ -29,7 +29,7 @@ export class UsersResolver {
 
   @Mutation(() => User, { name: "createUser" })
   async create(@Args("input") input: CreateUserInput) {
-    let payload = { ...input, email: input.email.toLowerCase() };
+    const payload = { ...input, email: input.email.toLowerCase() };
     const existUser = await this.usersService.findOne({
       email: payload.email,
     });
@@ -42,7 +42,7 @@ export class UsersResolver {
   @Mutation(() => User, { name: "updateUser" })
   async update(@Args("input") input: UserUpdateInput) {
     try {
-      let payload = { ...input };
+      const payload = { ...input };
       const user = await this.usersService.update(payload);
       return user;
     } catch (error) {
@@ -56,7 +56,7 @@ export class UsersResolver {
   @Mutation(() => LoginResponse, { name: "login" })
   async login(@Args("input") input: LoginInput) {
     try {
-      let payload = { ...input, email: input.email.toLowerCase() };
+      const payload = { ...input, email: input.email.toLowerCase() };
       return await this.usersService.login(payload);
     } catch (error) {
       throw new BadRequestException(

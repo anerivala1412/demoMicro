@@ -50,24 +50,13 @@ export class UsersService {
   }
 
   /**
-   *
-   * @param payload
-   */
-  async createMany(payload): Promise<any> {
-    await this.userModel.deleteMany({
-      _id: { $in: payload.map((doc) => new ObjectId(doc._id)) },
-    });
-    return await this.userModel.create(payload);
-  }
-
-  /**
    * register user
    * @param payload
    */
   async create(input): Promise<IUser> {
     const hashedPassword = await bcrypt.hash(input.password, 12);
 
-    let payload = {
+    const payload = {
       ...input,
       email: input.email.toLowerCase(),
       password: hashedPassword,
@@ -80,7 +69,7 @@ export class UsersService {
    * @param payload
    */
   async update(input): Promise<IUser> {
-    let payload = {
+    const payload = {
       ...input,
       email: input.email.toLowerCase(),
     };
@@ -124,9 +113,7 @@ export class UsersService {
       const payload = {
         userId: new ObjectId(existUser._id),
       };
-      console.log({ payload });
-      const token = jwtInfo.sign(payload);
-      return { token, userInfo: existUser };
+      return { token: jwtInfo.sign(payload), userInfo: existUser };
     }
     throw new Error(staticError.passwordNotMatched);
   }
